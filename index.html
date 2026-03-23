@@ -1,2001 +1,2159 @@
-</script>
-<!-- Add Resume Download Button (moved outside script) -->
-<button id="resumeBtn" class="btn" style="position:fixed;top:140px;right:20px;z-index:1100;">Download Resume</button>
 <!DOCTYPE html>
 <html lang="en">
-<head>
-
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Md Arshad Ali | Senior AI Technical Lead</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-<style>
-
-/* EXECUTIVE RESUME PREVIEW FIX */
-/* EXECUTIVE RESUME PREVIEW FIX */
-.resume-hover-wrapper {
-  position: relative;
-  display: inline-block;
-  padding-bottom: 30px; /* Bridge gap to keep window open */
-  margin-bottom: -30px;
-}
-
-.resume-preview-box {
-  visibility: hidden;
-  opacity: 0;
-  position: absolute;
-  bottom: 110%; 
-  left: 50%;
-  transform: translateX(-50%) translateY(20px);
-  width: 650px; 
-  height: 800px;
-  background: #fff;
-  border-radius: 12px;
-  border: 2px solid #38bdf8;
-  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.9);
-  z-index: 10001; /* Must be higher than nav z-index (1000) */
-  transition: all 0.3s ease-in-out;
-  overflow: hidden;
-  pointer-events: auto;
-}
-
-.resume-hover-wrapper:hover .resume-preview-box {
-  visibility: visible;
-  opacity: 1;
-  transform: translateX(-50%) translateY(0);
-}
-
-.resume-preview-box iframe {
-  width: 100%;
-  height: calc(100% - 40px);
-  border: none;
-  display: block;
-}
-
-/* TOP STATUS BAR */
-.preview-header {
-  background: #111827;
-  padding: 10px 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  color: #fff;
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 0.05em;
-}
+  <head>
+	  <meta charset="UTF-8">
+	  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	  <title>Md Arshad Ali | Senior AI Technical Lead</title>
+	  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+	  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+	  <style>
+		  /* EXECUTIVE RESUME PREVIEW FIX */
+		  .resume-hover-wrapper {
+		  position: relative;
+		  display: inline-block;
+		  padding-bottom: 30px; /* Bridge gap to keep window open */
+		  margin-bottom: -30px;
+		  }
 
 
-.tag-cloud {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-top: 10px;
-}
 
-.tag {
-  background: #1e293b;
-  color: #38bdf8;
-  padding: 5px 12px;
-  border-radius: 20px;
-  font-size: 0.8rem;
-  font-weight: 600;
-  border: 1px solid #334155;
-  transition: 0.3s;
-}
+		.resume-preview-box {
+		  visibility: hidden;
+		  opacity: 0;
+		  position: absolute;
+		  bottom: 20%; 
+		  left: 50%;
+		  transform: translateX(-50%) translateY(20px);
+		  
+		  /* DYNAMIC SIZING: Adjusts based on screen width */
+		  width: min(680px, 90vw); 
+		  height: 85vh; /* Uses 85% of screen height instead of fixed 800px */
+		  
+		  background: #ffffff;
+		  border-radius: 12px;
+		  border: 2px solid #38bdf8;
+		  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.9);
+		  z-index: 10005;
+		  transition: all 0.3s ease-in-out;
+		  overflow: hidden;
+		  pointer-events: auto;
+		}
 
-.tag:hover {
-  background: #38bdf8;
-  color: #0b0f19;
-  transform: scale(1.05);
-}
+		
+		  .resume-hover-wrapper:hover .resume-preview-box {
+		  visibility: visible;
+		  opacity: 1;
+		  transform: translateX(-50%) translateY(0);
+		  }
 
-.dots::after {
-  content: '';
-  animation: dots 1.5s steps(3, end) infinite;
-}
+		  .resume-preview-box iframe {
+		  width: 100%;
+		  height: calc(100% - 40px);
+		  border: none;
+		  display: block;
+		  }
 
-@keyframes dots {
-  0% { content: ''; }
-  33% { content: '.'; }
-  66% { content: '..'; }
-  100% { content: '...'; }
-}
-
-#sidebar {
-  position: fixed;
-  top: 60px;              /* below navbar */
-  left: 0;
-  width: 220px;
-  height: calc(100% - 60px);
-  background: rgba(2,6,23,0.97); /* semi-transparent dark */
-  padding: 15px;
-  overflow-y: auto;
-  z-index: 10; /* Lower than nav and chatBox */
-  box-shadow: 2px 0 8px rgba(0,0,0,0.2);
-}
-
-#chatList li {
-  list-style: none;
-  padding: 8px;
-  cursor: pointer;
-  border-bottom: 1px solid #333;
-}
-
-#chatList li:hover {
-  background: #111827;
-}
-
-/* shift content */
-body {
-  margin: 0;
-  padding-left: 0;
-  padding-top: 60px;     /* space for navbar */
-  font-family:'Inter', sans-serif;
-  background:#0b0f19;
-  color:#e2e8f0;
-}
-
-/* ChatGPT style */
-.msg.bot::before { content: "🤖 "; }
-.msg.user::before { content: "🧑 "; }
-#messages { scroll-behavior: smooth; }
-
-html { scroll-behavior: smooth; }
-body { margin:0; font-family:'Inter', sans-serif; background:#0b0f19; color:#e2e8f0; }
-
-/* NAV */
-/* UPDATED NAV */
-nav {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 60px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 20px; /* Reduced from 40px to prevent overflow */
-  background: rgba(0,0,0,0.95);
-  z-index: 1000;
-  box-sizing: border-box; /* Crucial: includes padding in the 100% width */
-}
-
-nav div {
-  display: flex;
-  gap: 15px; /* Adds consistent spacing between links */
-  margin-right: 20px; /* Keeps "Contact" away from the very edge */
-}
-
-.plain-link {
-  color: inherit;
-  text-decoration: none;
-  cursor: pointer;
-  font-weight: 500;
-  transition: color 0.2s;
-  white-space: nowrap; /* Prevents links from breaking into two lines */
-}
-
-/* HERO */
-header {
-height:100vh; display:flex; flex-direction:column;
-justify-content:center; align-items:center; text-align:center;
-}
-h1 { font-size:50px; }
-
-.btn {
-background:#38bdf8; padding:10px 20px;
-color:black; border-radius:6px; text-decoration:none;
-}
-
-/* SECTIONS */
-section {
-padding:100px 50px; max-width:1100px; margin:auto;
-opacity:0; transform:translateY(40px);
-transition:0.7s;
-}
-section.show { opacity:1; transform:translateY(0); }
-
-.grid {
-display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-gap:20px;
-}
-
-.card {
-background:#111827; padding:20px; border-radius:12px;
-transition:0.3s;
-}
-.card:hover {
-transform:translateY(-8px);
-box-shadow:0 10px 30px rgba(0,0,0,0.5);
-}
-
-footer { text-align:center; padding:30px; background:#020617; }
-
-/* CHAT UI */
-#chatBtn {
-position:fixed; bottom:20px; right:20px;
-padding:14px; background:#38bdf8;
-border:none; border-radius:50%;
-cursor:pointer;
-}
-
-#chatBox {
-  display:none;
-  position:fixed;
-  bottom:80px;
-  right:20px;
-  width:320px;
-  height:420px;
-  background:#111827;
-  border-radius:12px;
-  display:flex;
-  flex-direction:column;
-  z-index:1001; /* Above sidebar */
-  box-shadow: 0 8px 32px rgba(0,0,0,0.4);
-}
-
-#messages {
-flex:1; overflow:auto; padding:10px;
-display:flex; flex-direction:column; gap:8px;
-}
-
-.msg {
-padding:8px 12px;
-border-radius:12px;
-max-width:80%;
-word-wrap: break-word;
-overflow-wrap: break-word;
-white-space: pre-wrap;
-}
-
-.user { background:#38bdf8; color:black; align-self:flex-end; }
-.bot { background:#1f2937; }
-
-#inputArea { display:flex; border-top:1px solid #333; }
-
-#input {
-flex:1; padding:10px; border:none;
-background:#020617; color:white;
-}
-
-#mic {
-  background: none; 
-  border: none;
-  color: white; 
-  font-size: 18px;
-  cursor: pointer; 
-  padding: 10px;
-} /* <--- Add this bracket */
-#chatList li {
-  list-style: none;
-  padding: 8px;
-  cursor: pointer;
-  border-bottom: 1px solid #333;
-}
-
-#chatList li:hover {
-  background: #111827;
-}
-
-.plain-link {
-  color: inherit;
-  text-decoration: none;
-  cursor: pointer;
-  margin-left: 18px;
-  font-weight: 500;
-  transition: color 0.2s;
-}
-.plain-link:hover {
-  color: #38bdf8;
-  text-decoration: underline;
-}
-
-</style>
-</head>
-
-<body>
+		  /* TOP STATUS BAR */
+		  .preview-header {
+		  background: #111827;
+		  padding: 10px 20px;
+		  display: flex;
+		  justify-content: space-between;
+		  align-items: center;
+		  color: #fff;
+		  font-size: 0.75rem;
+		  font-weight: 700;
+		  letter-spacing: 0.05em;
+		  }
 
 
-  <div id="resumeModal" style="display: none; position: fixed; z-index: 9999; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(3, 7, 18, 0.95); backdrop-filter: blur(10px);">
-  <div style="position: relative; margin: 2% auto; padding: 0; width: 85%; height: 90%; max-width: 1000px; background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);">
-    
-    <div style="background: #111827; padding: 15px 25px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #1f2937;">
-      <span style="color: #fff; font-weight: 700; font-family: 'Playfair Display', serif;">Md Arshad Ali - Executive Resume</span>
-      <button onclick="closeResume()" style="background: #38bdf8; color: #030712; border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer; font-weight: 800;">CLOSE ✕</button>
-    </div>
+		  .tag-cloud {
+		  display: flex;
+		  flex-wrap: wrap;
+		  gap: 8px;
+		  margin-top: 10px;
+		  }
 
-    <!-- <iframe src="c:\Users\mdars\Downloads\Profile.pdf" width="100%" height="100%" style="border: none;"></iframe> -->
+		  .tag {
+		  background: #1e293b;
+		  color: #38bdf8;
+		  padding: 5px 12px;
+		  border-radius: 20px;
+		  font-size: 0.8rem;
+		  font-weight: 600;
+		  border: 1px solid #334155;
+		  transition: 0.3s;
+		  }
 
+		  .tag:hover {
+		  background: #38bdf8;
+		  color: #0b0f19;
+		  transform: scale(1.05);
+		  }
 
-  <div class="resume-hover-wrapper">
-    <a href="Profile.pdf" target="_blank" 
-      style="background: #38bdf8; color: #030712; padding: 1rem 2.2rem; border-radius: 6px; font-weight: 700; text-decoration: none; display: inline-block;">
-      Professional Resume
-    </a>
+		  .dots::after {
+		  content: '';
+		  animation: dots 1.5s steps(3, end) infinite;
+		  }
 
-    <div class="resume-preview-box">
-      <div class="preview-header">
-        <span>EXECUTIVE SUMMARY · 3 PAGES</span>
-        <span style="color: #38bdf8;">SCROLL TO VIEW FULL ↗</span>
-      </div>
-      <iframe src="Profile.pdf#toolbar=1&navpanes=0&view=FitH"></iframe>
-    </div>
-  </div>
-    
-  </div>
-</div>
+		  @keyframes dots {
+		  0% { content: ''; }
+		  33% { content: '.'; }
+		  66% { content: '..'; }
+		  100% { content: '...'; }
+		  }
 
+		  #chatList li {
+		  list-style: none;
+		  padding: 8px;
+		  cursor: pointer;
+		  border-bottom: 1px solid #333;
+		  }
 
-<button id="themeToggle" style="position:fixed;top:70px;right:20px;z-index:1100;">🌙</button>
+		  #chatList li:hover {
+		  background: #111827;
+		  }
 
+		  /* shift content */
+		  body {
+		  margin: 0;
+		  padding-left: 0;
+		  padding-top: 60px;     /* space for navbar */
+		  font-family:'Inter', sans-serif;
+		  background:#0b0f19;
+		  color:#e2e8f0;
+		  }
 
-<script>
+		  /* ChatGPT style */
+		  .msg.bot::before { content: "🤖 "; }
+		  .msg.user::before { content: "🧑 "; }
+		  #messages { scroll-behavior: smooth; }
 
+		  html { scroll-behavior: smooth; }
+		  body { margin:0; font-family:'Inter', sans-serif; background:#0b0f19; color:#e2e8f0; }
 
-function openResume() {
-  document.getElementById("resumeModal").style.display = "block";
-  // Prevent background scrolling while viewing
-  document.body.style.overflow = "hidden";
+		  /* NAV */
+		  /* UPDATED NAV */
+		  nav {
+		  position: fixed;
+		  top: 0;
+		  left: 0;
+		  width: 100%;
+		  height: 60px;
+		  display: flex;
+		  align-items: center;
+		  justify-content: space-between;
+		  padding: 0 20px; /* Reduced from 40px to prevent overflow */
+		  background: rgba(0,0,0,0.95);
+		  z-index: 1000;
+		  box-sizing: border-box; /* Crucial: includes padding in the 100% width */
+		  }
+
+		  nav div {
+		  display: flex;
+		  gap: 15px; /* Adds consistent spacing between links */
+		  margin-right: 20px; /* Keeps "Contact" away from the very edge */
+		  }
+
+		  .plain-link {
+		  color: inherit;
+		  text-decoration: none;
+		  cursor: pointer;
+		  font-weight: 500;
+		  transition: color 0.2s;
+		  white-space: nowrap; /* Prevents links from breaking into two lines */
+		  }
+
+		  /* HERO */
+		  header {
+		  height:100vh; display:flex; flex-direction:column;
+		  justify-content:center; align-items:center; text-align:center;
+		  }
+		  h1 { font-size:50px; }
+
+		  .btn {
+		  background:#38bdf8; padding:10px 20px;
+		  color:black; border-radius:6px; text-decoration:none;
+		  }
+
+		  /* SECTIONS */
+		  section {
+		  padding:100px 50px; max-width:1100px; margin:auto;
+		  opacity:0; transform:translateY(40px);
+		  transition:0.7s;
+		  }
+		  section.show { opacity:1; transform:translateY(0); }
+
+		  .grid {
+		  display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+		  gap:20px;
+		  }
+
+		  .card {
+		  background:#111827; padding:20px; border-radius:12px;
+		  transition:0.3s;
+		  }
+		  .card:hover {
+		  transform:translateY(-8px);
+		  box-shadow:0 10px 30px rgba(0,0,0,0.5);
+		  }
+
+		  footer { text-align:center; padding:30px; background:#020617; }
+
+		  /* CHAT UI */
+		  #chatBtn {
+		  position:fixed; bottom:20px; right:20px;
+		  padding:14px; background:#38bdf8;
+		  border:none; border-radius:50%;
+		  cursor:pointer;
+		  }
+
+		  #chatBox {
+		  position:fixed;
+		  bottom:80px;
+		  right:20px;
+		  width:320px;
+		  height:420px;
+		  background:#111827;
+		  border-radius:12px;
+		  display:flex;
+		  flex-direction:column;
+		  z-index:1001; /* Above sidebar */
+		  box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+		  }
+
+		  #messages {
+		  flex:1; overflow:auto; padding:10px;
+		  display:flex; flex-direction:column; gap:8px;
+		  }
+
+		  .msg {
+		  padding:8px 12px;
+		  border-radius:12px;
+		  max-width:80%;
+		  word-wrap: break-word;
+		  overflow-wrap: break-word;
+		  white-space: pre-wrap;
+		  }
+
+		  .user { background:#38bdf8; color:black; align-self:flex-end; }
+		  .bot { background:#1f2937; }
+
+		  #inputArea { display:flex; border-top:1px solid #333; }
+
+		  #input {
+		  flex:1; padding:10px; border:none;
+		  background:#020617; color:white;
+		  }
+
+		  #mic {
+		  background: none; 
+		  border: none;
+		  color: white; 
+		  font-size: 18px;
+		  cursor: pointer; 
+		  padding: 10px;
+		  }
+	  </style>
+  </head>
   
-  // Optional: Track view event in your Chatbot
-  if(typeof addMessage === "function") {
-     addMessage("Opening my professional resume for you. Let me know if you have questions about my work at Coforge or Genpact!", "bot");
-  }
-}
+  <body>
 
-function closeResume() {
-  document.getElementById("resumeModal").style.display = "none";
-  // Restore scrolling
-  document.body.style.overflow = "auto";
-}
+	  <!-- Add Resume Download Button (moved outside script) -->
+	  <!-- <button id="resumeBtn" class="btn" style="position:fixed;top:140px;right:20px;z-index:1100;">Download Resume</button> -->
+	  <div id="resumeModal" style="display: none; position: fixed; z-index: 9999; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(3, 7, 18, 0.95); backdrop-filter: blur(10px);">
+	  <div style="position: relative; margin: 2% auto; padding: 0; width: 85%; height: 90%; max-width: 1000px; background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);">
+	  <div style="background: #111827; padding: 15px 25px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #1f2937;">
+	  <span style="color: #fff; font-weight: 700; font-family: 'Playfair Display', serif;">Md Arshad Ali - Executive Resume</span>
+	  <button onclick="closeResume()" style="background: #38bdf8; color: #030712; border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer; font-weight: 800;">CLOSE ✕</button>
+	  </div>
 
-// Close modal if user clicks outside of the resume box
-window.onclick = function(event) {
-  let modal = document.getElementById("resumeModal");
-  if (event.target == modal) {
-    closeResume();
-  }
-}
+	  <!-- Fallback message for browsers that block PDF preview -->
+	  <noscript>
+		<div style="padding: 2rem; text-align: center;">
+		  <p>Unable to preview the PDF? <a href="https://drive.google.com/file/d/18r8TMYg7OE-VYBLc8GI_LSqdtvbxH9Jh/view?usp=sharing" download>Click here to download the resume.</a></p>
+		</div>
+	  </noscript>
 
+	  <!--
+		NOTE for GitHub Pages:
+		- Place Profile.pdf in the same directory as arshad.html in your repository.
+		- Use only relative paths (no C:/, no backslashes).
+		- GitHub Pages may not support inline PDF preview in all browsers; the download link will always work.
+	  -->
 
-// RESUME TRACKER
-const resumeBtn = document.getElementById("resumeBtn");
-if (resumeBtn) {
-  resumeBtn.addEventListener("click", () => {
-    // Logic: Log the download event
-    console.log("Resume Downloaded: " + new Date().toLocaleString());
-    // Optional: Trigger a notification in your Chatbot
-    setTimeout(() => {
-      addMessage("I hope you find my resume impressive! Feel free to ask me about my 9+ years of experience at Coforge or Genpact.", "bot");
-    }, 2000);
-  });
-}
-
-// Add a simple addMessage function and chat area if not present
-if (!document.getElementById("chatArea")) {
-  const chatAreaDiv = document.createElement("div");
-  chatAreaDiv.id = "chatArea";
-  chatAreaDiv.style = "position:fixed;bottom:20px;left:20px;width:300px;max-height:200px;overflow:auto;background:#111827;color:#fff;padding:10px;border-radius:8px;z-index:9999;box-shadow:0 2px 8px rgba(0,0,0,0.3);font-size:14px;";
-  document.body.appendChild(chatAreaDiv);
-}
-
-function addMessage(message, sender) {
-  const chatArea = document.getElementById("chatArea");
-  if (chatArea) {
-    const msgDiv = document.createElement("div");
-    msgDiv.className = sender;
-    msgDiv.textContent = (sender === "bot" ? "🤖 " : "🧑 ") + message;
-    chatArea.appendChild(msgDiv);
-    chatArea.scrollTop = chatArea.scrollHeight;
-  }
-}
+	  </div>
+	  </div>
 
 
-let dark = true;
-
-document.getElementById("themeToggle").onclick = () => {
-  dark = !dark;
-
-  if(dark){
-    document.body.style.background = "#0b0f19";
-    document.body.style.color = "#e2e8f0";
-  } else {
-    document.body.style.background = "#ffffff";
-    document.body.style.color = "#000000";
-  }
-};
+	  <!--button id="themeToggle" style="position:fixed;top:70px;right:20px;z-index:1100;">🌙</button-->
 
 
-const USER_IMG = "https://cdn-icons-png.flaticon.com/512/847/847969.png";
-const BOT_IMG = "https://cdn-icons-png.flaticon.com/512/4712/4712109.png";
-
-</script>
-<!-- NAV -->
-<nav>
-  <b>Arshad</b>
-  <div class="nav-links" style="position:relative; z-index:1001;">
-    <a href="#about" class="plain-link">About</a>
-    <a href="#skills" class="plain-link">Skills</a>
-    <a href="#case" class="plain-link">Case</a>
-    <a href="#timeline" class="plain-link">Timeline</a>
-    <a href="#demos" class="plain-link">Demos</a>
-    <a href="#contact" class="plain-link">Contact</a>
-  </div>
-</nav>
+	  <script>
 
 
-<!-- HERO -->
-<!-- <header>
-<a id="resumeBtn" class="btn" href="Md_Arshad_Ali_1225.pdf" download="Md_Arshad_Ali_Resume.pdf">Download Resume</a> -->
-<!-- <h1>Senior Technical Lead & AI Generalist</h1>
-<p>9+ Years Experience | GenAI & Agentic AI Specialist | MLOps Expert</p>
-<br>
-<a class="btn" href="#case">Explore Work</a>
-<br><br>
-<a class="btn" href="Md_Arshad_Ali_1225.pdf" download="Md_Arshad_Ali_Resume.pdf">Download Resume</a>
-</header> -->
-<!-- 
-<header style="height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;">
-  
-  <img src="YOUR_PICTURE_URL.jpg" alt="Md Arshad Ali" style="width: 150px; height: 150px; border-radius: 50%; border: 4px solid #38bdf8; object-fit: cover; margin-bottom: 20px;">
-  
-  <h1>Senior Technical Lead & AI Generalist</h1>
-  <p>9+ Years Experience | GenAI & Agentic AI Specialist | MLOps Expert</p>
-  
-  <div style="display: flex; gap: 15px; margin: 20px 0;">
-    <a href="your-linkedin-profile-url" class="plain-link" target="_blank">LinkedIn</a>
-    <a href="your-github-profile-url" class="plain-link" target="_blank">GitHub</a>
-  </div>
+	  function openResume() {
+	  document.getElementById("resumeModal").style.display = "block";
+	  // Prevent background scrolling while viewing
+	  document.body.style.overflow = "hidden";
 
-  <div style="display: flex; gap: 15px;">
-    <a class="btn" href="#case">Explore Work</a>
-    <a class="btn" href="Md_Arshad_Ali_Resume.pdf" download>Download Resume</a>
-  </div>
-</header>
+	  // Optional: Track view event in your Chatbot
+	  if(typeof addMessage === "function") {
+	  addMessage("Opening my professional resume for you. Let me know if you have questions about my work at Coforge or Genpact!", "bot");
+	  }
+	  }
+
+	  function closeResume() {
+	  document.getElementById("resumeModal").style.display = "none";
+	  // Restore scrolling
+	  document.body.style.overflow = "auto";
+	  }
+
+	  // Close modal if user clicks outside of the resume box
+	  window.onclick = function(event) {
+	  let modal = document.getElementById("resumeModal");
+	  if (event.target == modal) {
+	  closeResume();
+	  }
+	  }
 
 
-<section id="hero" style="background: #0b0f19; min-height: 100vh; display: flex; align-items: center; padding: 100px 5% 60px;">
-  <div style="display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 4rem; max-width: 1100px; margin: 0 auto; width: 100%;">
-    <div class="hero-left">
-      <div style="display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(56, 189, 248, 0.1); border: 1px solid rgba(56, 189, 248, 0.2); padding: 0.4rem 0.9rem; border-radius: 20px; font-size: 0.75rem; color: #38bdf8; margin-bottom: 1.8rem;">
-        <span class="status-dot"></span> Open to Strategic AI Roles
-      </div>
-      
-      <h1 style="font-family: 'Playfair Display', serif; font-size: clamp(2.8rem, 5vw, 4rem); color: #fff; line-height: 1.1; margin-bottom: 0.6rem;">
-        Md Arshad <span style="color: #38bdf8;">Ali</span>
-      </h1>
-      <p style="font-size: 1.2rem; color: rgba(255,255,255,0.6); margin-bottom: 1.8rem;">Senior Technical Lead & AI Generalist @ **Coforge**</p>
-      <p style="font-size: 1rem; color: rgba(255,255,255,0.55); line-height: 1.8; max-width: 500px; margin-bottom: 2.5rem;">
-        Building next-gen AI systems and RAG pipelines. Standardizing AI interactions across the SDLC through Model Context Protocol (MCP) tools.
-      </p>
-      
-      <div style="display: flex; gap: 1rem;">
-        <a href="#projects" class="btn" style="background: #38bdf8; color: #000; padding: 0.75rem 1.8rem; border-radius: 4px; font-weight: 600; text-decoration: none;">View Projects</a>
-        <a href="Md_Arshad_Ali_Resume.pdf" class="btn" style="border: 1px solid rgba(255,255,255,0.2); color: #fff; padding: 0.75rem 1.8rem; border-radius: 4px; text-decoration: none;">Download Resume</a>
-      </div>
-    </div>
+	  // RESUME TRACKER
+	  const resumeBtn = document.getElementById("resumeBtn");
+	  if (resumeBtn) {
+	  resumeBtn.addEventListener("click", () => {
+	  // Logic: Log the download event
+	  console.log("Resume Downloaded: " + new Date().toLocaleString());
+	  // Optional: Trigger a notification in your Chatbot
+	  setTimeout(() => {
+	  addMessage("I hope you find my resume impressive! Feel free to ask me about my 9+ years of experience at Coforge or Genpact.", "bot");
+	  }, 2000);
+	  });
+	  }
 
-    <div style="display: flex; flex-direction: column; align-items: center; gap: 1.5rem;">
-      <div style="width: 220px; height: 220px; border-radius: 50%; border: 3px solid #38bdf8; padding: 5px; background: linear-gradient(135deg, rgba(56, 189, 248, 0.2), transparent);">
-        <img src="your-photo.jpg" alt="Md Arshad Ali" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">
-      </div>
-      <div style="display: flex; gap: 2rem;">
-        <div style="text-align: center;"><div style="font-size: 1.4rem; font-weight: 700; color: #fff;">9+</div><div style="font-size: 0.65rem; color: #94a3b8; text-transform: uppercase;">Yrs Exp</div></div>
-        <div style="text-align: center;"><div style="font-size: 1.4rem; font-weight: 700; color: #fff;">10+</div><div style="font-size: 0.65rem; color: #94a3b8; text-transform: uppercase;">Projects</div></div>
-        <div style="text-align: center;"><div style="font-size: 1.4rem; font-weight: 700; color: #fff;">MBA</div><div style="font-size: 0.65rem; color: #94a3b8; text-transform: uppercase;">Finance</div></div>
-      </div>
-    </div>
-  </div>
-</section> -->
+	  // Add a simple addMessage function and chat area if not present
+	  if (!document.getElementById("chatArea")) {
+	  const chatAreaDiv = document.createElement("div");
+	  chatAreaDiv.id = "chatArea";
+	  chatAreaDiv.style = "position:fixed;bottom:20px;left:20px;width:300px;max-height:200px;overflow:auto;background:#111827;color:#fff;padding:10px;border-radius:8px;z-index:9999;box-shadow:0 2px 8px rgba(0,0,0,0.3);font-size:14px;";
+	  document.body.appendChild(chatAreaDiv);
+	  }
 
-<section id="hero" style="background: #030712; min-height: 100vh; display: flex; align-items: center; padding: 80px 5% 40px; position: relative; overflow: hidden;">
-  <div style="position: absolute; top: -10%; right: -10%; width: 400px; height: 400px; background: rgba(56, 189, 248, 0.05); filter: blur(100px); border-radius: 50%;"></div>
+	  function addMessage(message, sender) {
+	  const chatArea = document.getElementById("chatArea");
+	  if (chatArea) {
+	  const msgDiv = document.createElement("div");
+	  msgDiv.className = sender;
+	  msgDiv.textContent = (sender === "bot" ? "🤖 " : "🧑 ") + message;
+	  chatArea.appendChild(msgDiv);
+	  chatArea.scrollTop = chatArea.scrollHeight;
+	  }
+	  }
 
-  <div style="display: grid; grid-template-columns: 1.2fr 1fr; align-items: center; gap: 4rem; max-width: 1200px; margin: 0 auto; width: 100%; position: relative; z-index: 1;">
-    
-    <div class="hero-left">
-      <div style="display: inline-flex; align-items: center; gap: 0.6rem; background: rgba(56, 189, 248, 0.08); border: 1px solid rgba(56, 189, 248, 0.2); padding: 0.5rem 1rem; border-radius: 30px; font-size: 0.75rem; color: #38bdf8; font-weight: 600; margin-bottom: 2rem; letter-spacing: 0.05em;">
-        <span class="status-dot" style="width: 8px; height: 8px; background: #38bdf8; border-radius: 50%; box-shadow: 0 0 10px #38bdf8; display: inline-block;"></span> 
-        OPEN TO STRATEGIC AI LEADERSHIP
-      </div>
-      
-      <h1 style="font-family: 'Playfair Display', serif; font-size: clamp(3rem, 6vw, 4.5rem); color: #ffffff; line-height: 1.1; margin-bottom: 1rem; font-weight: 700;">
-        Md Arshad <span style="color: #38bdf8;">Ali</span>
-      </h1>
-      
-      <p style="font-size: 1.25rem; font-weight: 500; color: rgba(255,255,255,0.8); margin-bottom: 1.5rem; letter-spacing: -0.01em;">
-        Senior Technical Lead & AI Generalist @ <span style="color: #38bdf8; font-weight: 700;">Coforge</span>
-      </p>
-      
-      <p style="font-size: 1.05rem; color: #94a3b8; line-height: 1.8; max-width: 540px; margin-bottom: 3rem;">
-        Pioneering next-gen AI systems and RAG pipelines. Specializing in standardizing AI interactions across the SDLC through Model Context Protocol (MCP) tools[cite: 98, 99].
-      </p>
-      
-      <div style="display: flex; gap: 1.2rem; flex-wrap: wrap;">
-        <a href="#case" style="background: #38bdf8; color: #0f172a; padding: 1rem 2.2rem; border-radius: 6px; font-weight: 700; text-decoration: none; transition: 0.3s; box-shadow: 0 10px 20px rgba(56, 189, 248, 0.15);">
-          View Case Studies
-        </a>
-        <!-- <a href="Profile.pdf" download style="border: 1px solid rgba(255,255,255,0.2); color: #ffffff; padding: 1rem 2.2rem; border-radius: 6px; font-weight: 600; text-decoration: none; transition: 0.3s; background: rgba(255,255,255,0.03);">
-          Download Resume
-        </a> -->
 
-        <div style="display: flex; gap: 1.2rem; flex-wrap: wrap; position: relative;">
-          <div class="resume-hover-wrapper" style="position: relative; display: inline-block;">
-            <a href="Profile.pdf" target="_blank" 
-              style="background: #38bdf8; color: #030712; padding: 1rem 2.2rem; border-radius: 6px; font-weight: 700; text-decoration: none; display: inline-block; transition: 0.3s; box-shadow: 0 10px 20px rgba(56, 189, 248, 0.15);">
-              Professional Resume
-            </a>
+	  let dark = true;
 
-            <div class="resume-preview-box">
-              <div style="background: #111827; padding: 10px; color: #fff; font-size: 0.7rem; text-align: center; border-bottom: 1px solid #1f2937;">
-                QUICK PREVIEW · MD ARSHAD ALI
-              </div>
-              <!-- <iframe src="C:\Users\mdars\Downloads\Profile.pdf#toolbar=0&navpanes=0&scrollbar=0" width="100%" height="100%" style="border: none;"></iframe> -->
+	  document.getElementById("themeToggle").onclick = () => {
+	  dark = !dark;
 
-              <div class="resume-hover-wrapper">
-                <a href="Profile.pdf" target="_blank" 
-                  style="background: var(--primary); color: #000; padding: 1rem 2.2rem; border-radius: 6px; font-weight: 700; text-decoration: none; display: inline-block;">
-                  Professional Resume
-                </a>
+	  if(dark){
+	  document.body.style.background = "#0b0f19";
+	  document.body.style.color = "#e2e8f0";
+	  } else {
+	  document.body.style.background = "#ffffff";
+	  document.body.style.color = "#000000";
+	  }
+	  };
 
-                <div class="resume-preview-box">
-                  <div class="preview-header">
-                    <span>EXECUTIVE SUMMARY · 3 PAGES</span>
-                    <span style="color: var(--primary);">SCROLL TO VIEW FULL ↗</span>
-                  </div>
-                  <iframe src="Profile.pdf#toolbar=1&navpanes=0" title="Md Arshad Ali Resume"></iframe>
-                </div>
-              </div>
-              
-            </div>
-          </div>
 
-          <a href="Profile.pdf" download 
-            style="border: 1px solid rgba(255,255,255,0.2); color: #ffffff; padding: 1rem 2.2rem; border-radius: 6px; font-weight: 600; text-decoration: none; background: rgba(255,255,255,0.03);">
-            Download PDF
-          </a>
-        </div>
+	  const USER_IMG = "https://cdn-icons-png.flaticon.com/512/847/847969.png";
+	  const BOT_IMG = "https://cdn-icons-png.flaticon.com/512/4712/4712109.png";
 
-        <div style="display: flex; gap: 1.2rem; flex-wrap: wrap;">
-          <button onclick="openResume()" style="background: #38bdf8; color: #0f172a; padding: 1rem 2.2rem; border-radius: 6px; font-weight: 700; border: none; cursor: pointer; transition: 0.3s; box-shadow: 0 10px 20px rgba(56, 189, 248, 0.15);">
-            View Resume
-          </button>
-          
-          <a href="Profile.pdf" download style="border: 1px solid rgba(255,255,255,0.2); color: #ffffff; padding: 1rem 2.2rem; border-radius: 6px; font-weight: 600; text-decoration: none; transition: 0.3s; background: rgba(255,255,255,0.03);">
-            Download PDF
-          </a>
-        </div>
+	  </script>
+	  <!-- NAV -->
+	  <nav>
+	  <b>Md Arshad Ali</b>
+	  <div class="nav-links" style="position:relative; z-index:1001;">
+	  <a href="#about" class="plain-link">About</a>
+	  <a href="#skills" class="plain-link">Skills</a>
+	  <a href="#case" class="plain-link">Case</a>
+	  <a href="#timeline" class="plain-link">Timeline</a>
+	  <a href="#demos" class="plain-link">Demos</a>
+	  <a href="#contact" class="plain-link">Contact</a>
+	  </div>
+	  </nav>
 
-      </div>
-      
-      <div style="display: flex; gap: 1.5rem; margin-top: 2.5rem; opacity: 0.6;">
-        <a href="your-linkedin-url" style="color: #fff; text-decoration: none; font-size: 0.9rem; font-weight: 500;">LinkedIn ↗</a>
-        <a href="your-github-url" style="color: #fff; text-decoration: none; font-size: 0.9rem; font-weight: 500;">GitHub ↗</a>
-      </div>
-    </div>
 
-    <div style="display: flex; flex-direction: column; align-items: center; gap: 2.5rem;">
-      <div style="position: relative;">
-        <div style="width: 260px; height: 260px; border-radius: 50%; border: 2px solid rgba(56, 189, 248, 0.3); padding: 8px; background: linear-gradient(135deg, rgba(56, 189, 248, 0.2) 0%, transparent 100%);">
-          <img src="your-photo.jpg" alt="Md Arshad Ali" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover; filter: brightness(1.05);">
-        </div>
-        <div style="position: absolute; bottom: 10px; right: 0; background: #38bdf8; color: #030712; padding: 8px 16px; border-radius: 20px; font-weight: 800; font-size: 0.8rem; box-shadow: 0 4px 12px rgba(0,0,0,0.3);">
-          9+ YEARS EXP [cite: 78, 114, 132]
-        </div>
-      </div>
+	  <!-- HERO -->
+	  <section id="hero" style="background: #030712; min-height: 100vh; display: flex; align-items: center; padding: 80px 5% 40px; position: relative; overflow: hidden;">
+	  <div style="position: absolute; top: -10%; right: -10%; width: 400px; height: 400px; background: rgba(56, 189, 248, 0.05); filter: blur(100px); border-radius: 50%;"></div>
 
-      <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 2.5rem; width: 100%;">
-        <div style="text-align: center;">
-          <div style="font-size: 1.6rem; font-weight: 800; color: #ffffff;">10+</div>
-          <div style="font-size: 0.65rem; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.1em; margin-top: 4px;">Projects [cite: 125, 152]</div>
-        </div>
-        <div style="text-align: center;">
-          <div style="font-size: 1.6rem; font-weight: 800; color: #ffffff;">MBA</div>
-          <div style="font-size: 0.65rem; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.1em; margin-top: 4px;">Finance [cite: 138]</div>
-        </div>
-        <div style="text-align: center;">
-          <div style="font-size: 1.6rem; font-weight: 800; color: #ffffff;">60%</div>
-          <div style="font-size: 0.65rem; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.1em; margin-top: 4px;">Efficiency [cite: 118]</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+	  <div style="display: grid; grid-template-columns: 1.2fr 1fr; align-items: center; gap: 4rem; max-width: 1200px; margin: 0 auto; width: 100%; position: relative; z-index: 1;">
 
-<!-- ABOUT -->
+	  <div class="hero-left">
+	  <div style="display: inline-flex; align-items: center; gap: 0.6rem; background: rgba(56, 189, 248, 0.08); border: 1px solid rgba(56, 189, 248, 0.2); padding: 0.5rem 1rem; border-radius: 30px; font-size: 0.75rem; color: #38bdf8; font-weight: 600; margin-bottom: 2rem; letter-spacing: 0.05em;">
+	  <span class="status-dot" style="width: 8px; height: 8px; background: #38bdf8; border-radius: 50%; box-shadow: 0 0 10px #38bdf8; display: inline-block;"></span> 
+	  OPEN TO STRATEGIC AI LEADERSHIP
+	  </div>
+
+	  <h1 style="font-family: 'Playfair Display', serif; font-size: clamp(3rem, 6vw, 4.5rem); color: #ffffff; line-height: 1.1; margin-bottom: 1rem; font-weight: 700;">
+	  Md Arshad <span style="color: #38bdf8;">Ali</span>
+	  </h1>
+
+	  <p style="font-size: 1.25rem; font-weight: 500; color: rgba(255,255,255,0.8); margin-bottom: 1.5rem; letter-spacing: -0.01em;">
+	  Senior Technical Lead & AI Generalist @ <span style="color: #38bdf8; font-weight: 700;">Coforge</span>
+	  </p>
+
+	  <p style="font-size: 1.05rem; color: #94a3b8; line-height: 1.8; max-width: 540px; margin-bottom: 3rem;">
+	  Senior Technical Lead & Data Scientist with 9+ years of experience specializing in GenAI and Agentic AI. Pioneering next-gen RAG pipelines and standardizing the enterprise SDLC through Model Context Protocol (MCP) and scalable Uvicorn-based backend architectures.
+	  </p>
+
+	  <div style="display: flex; gap: 1.2rem; flex-wrap: wrap;">
+	  <a href="#case" style="background: #38bdf8; color: #0f172a; padding: 1rem 2.2rem; border-radius: 6px; font-weight: 700; text-decoration: none; transition: 0.3s; box-shadow: 0 10px 20px rgba(56, 189, 248, 0.15);">
+	  View Case Studies
+	  </a>
+	  <!-- <a href="https://drive.google.com/file/d/18r8TMYg7OE-VYBLc8GI_LSqdtvbxH9Jh/view?usp=sharing" download style="border: 1px solid rgba(255,255,255,0.2); color: #ffffff; padding: 1rem 2.2rem; border-radius: 6px; font-weight: 600; text-decoration: none; transition: 0.3s; background: rgba(255,255,255,0.03);">
+	  Download Resume
+	  </a> -->
+	  
+	<div class="resume-hover-wrapper" style="position: relative; display: inline-block;">
+		<a href="https://drive.google.com/file/d/18r8TMYg7OE-VYBLc8GI_LSqdtvbxH9Jh/view?usp=sharing" target="_blank" 
+		   style="background: #38bdf8; color: #030712; padding: 1rem 2.2rem; border-radius: 6px; font-weight: 700; text-decoration: none; display: inline-block; transition: 0.3s; box-shadow: 0 10px 20px rgba(56, 189, 248, 0.15);">
+			Professional Resume
+		</a>
+
+		<div class="resume-preview-box">
+			<div class="preview-header">
+				<span>EXECUTIVE SUMMARY · 3 PAGES</span>
+				<span style="color: #38bdf8;">SCROLL TO VIEW FULL ↗</span>
+			</div>
+			<iframe 
+			  src="https://drive.google.com/file/d/18r8TMYg7OE-VYBLc8GI_LSqdtvbxH9Jh/preview#page=1&view=FitH,0,1000" 
+			  width="100%" 
+			  height="100%" 
+			  style="border: none; display: block; background: #fff;"
+			  allow="autoplay">
+			</iframe>
+		</div>
+	</div>
+	  
+	  
+
+	  <div style="display: flex; gap: 1.2rem; flex-wrap: wrap; position: relative;">
+	  <a href="https://drive.google.com/file/d/18r8TMYg7OE-VYBLc8GI_LSqdtvbxH9Jh/view?usp=sharing" download 
+	  style="border: 1px solid rgba(255,255,255,0.2); color: #ffffff; padding: 1rem 2.2rem; border-radius: 6px; font-weight: 600; text-decoration: none; background: rgba(255,255,255,0.03);">
+	  Download PDF
+	  </a>
+	  </div>
+	  
+	  
+	  
+	  
+	  
+	  </div>
+
+	  <div style="display: flex; gap: 1.5rem; margin-top: 2.5rem; opacity: 0.6;">
+	  <a href="https://www.linkedin.com/in/mdarshadali/" style="color: #fff; text-decoration: none; font-size: 0.9rem; font-weight: 500;">LinkedIn ↗</a>
+	  <a href="https://github.com/ArshadAliDS" style="color: #fff; text-decoration: none; font-size: 0.9rem; font-weight: 500;">GitHub ↗</a>
+	  </div>
+	  </div>
+
+	  <div style="display: flex; flex-direction: column; align-items: center; gap: 2.5rem;">
+	  <div style="position: relative;">
+	  <div style="width: 260px; height: 260px; border-radius: 50%; border: 2px solid rgba(56, 189, 248, 0.3); padding: 8px; background: linear-gradient(135deg, rgba(56, 189, 248, 0.2) 0%, transparent 100%);">
+	  <img src="your-photo.jpg" alt="Md Arshad Ali" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover; filter: brightness(1.05);">
+	  </div>
+	  <div style="position: absolute; bottom: 10px; right: 0; background: #38bdf8; color: #030712; padding: 8px 16px; border-radius: 20px; font-weight: 800; font-size: 0.8rem; box-shadow: 0 4px 12px rgba(0,0,0,0.3);">
+	  9+ YEARS EXP
+	  </div>
+	  </div>
+
+
+
+	<div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; margin-top: 3rem;">
+	  <div style="background: rgba(255,255,255,0.03); border-left: 3px solid #38bdf8; padding: 1.5rem; border-radius: 8px; backdrop-filter: blur(10px); transition: 0.3s;" onmouseover="this.style.background='rgba(56, 189, 248, 0.08)'" onmouseout="this.style.background='rgba(255,255,255,0.03)'">
+		<div style="font-size: 1.8rem; font-weight: 800; background: linear-gradient(90deg, #38bdf8, #818cf8); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">9+ YRS</div>
+		<div style="font-size: 0.7rem; color: #94a3b8; text-transform: uppercase; margin-top: 5px; letter-spacing: 0.05em;">AI & Data Mastery</div>
+	  </div>
+	  
+	  <div style="background: rgba(255,255,255,0.03); border-left: 3px solid #818cf8; padding: 1.5rem; border-radius: 8px; backdrop-filter: blur(10px); transition: 0.3s;" onmouseover="this.style.background='rgba(129, 140, 248, 0.08)'" onmouseout="this.style.background='rgba(255,255,255,0.03)'">
+		<div style="font-size: 1.8rem; font-weight: 800; background: linear-gradient(90deg, #38bdf8, #818cf8); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">AGENTIC</div>
+		<div style="font-size: 0.7rem; color: #94a3b8; text-transform: uppercase; margin-top: 5px; letter-spacing: 0.05em;">Systems Architected</div>
+	  </div>
+
+	  <div style="background: rgba(255,255,255,0.03); border-left: 3px solid #38bdf8; padding: 1.5rem; border-radius: 8px; backdrop-filter: blur(10px); transition: 0.3s;" onmouseover="this.style.background='rgba(56, 189, 248, 0.08)'" onmouseout="this.style.background='rgba(255,255,255,0.03)'">
+		<div style="font-size: 1.8rem; font-weight: 800; background: linear-gradient(90deg, #38bdf8, #818cf8); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">60% GAIN</div>
+		<div style="font-size: 0.7rem; color: #94a3b8; text-transform: uppercase; margin-top: 5px; letter-spacing: 0.05em;">Retrieval Efficiency</div>
+	  </div>
+	</div>
+
+	  </div>
+	  </div>
+	  </section>
+
+	  <!-- ABOUT -->
+
 <section id="about">
-<h2>About</h2>
-<p>"I am a builder of Next-Gen AI Systems. At Coforge, I led the development of an AI-enabled SDLC platform and implemented Model Context Protocol (MCP) tools to standardize AI interactions.</p>
-</section>
+    <div style="text-align: center; margin-bottom: 4rem;">
+        <h2 class="about-header-glow">Executive Profile: The AI Architect</h2>
+        <p style="color: #94a3b8; max-width: 800px; margin: auto; font-size: 1.1rem; line-height: 1.8;">
+            With over <strong>9+ years of industry tenure</strong>, I have evolved from a core <strong>Data Scientist</strong> into a <strong>Senior Technical Lead</strong> architecting enterprise-grade AI ecosystems. 
+            My unique edge lies at the intersection of <strong>Financial Strategy (MBA)</strong> and <strong>Deep Tech Engineering</strong>.
+        </p>
+    </div>
 
-<section id="metrics" style="background: #030712; padding: 80px 5%;">
-  <div style="max-width: 1100px; margin: 0 auto;">
-    <h2 style="color: #fff; font-family: 'Playfair Display', serif; margin-bottom: 3rem;">Technical Proficiency</h2>
-    <div class="bar-grid" id="barSkills" style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem 5rem;">
-      
-      <div class="bar-item">
-        <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem; color: #fff; font-size: 0.85rem;">
-          <span>Generative AI & RAG</span><span>95%</span>
+    <div class="super-about">
+        <div class="about-card">
+            <span class="expert-icon">🧬</span>
+            <span class="stat-pill">9+ YEARS MASTERY</span>
+            <h3>Data Intelligence Core</h3>
+            <p style="font-size: 0.95rem; color: #94a3b8; line-height: 1.6;">
+                My foundation is built on rigorous statistical modeling and predictive analytics. 
+                At <strong>Deloitte and Genpact</strong>, I mastered the art of turning raw data into <strong>Decision Intelligence</strong>. 
+                By utilizing advanced algorithms like <strong>XGBoost and NLP</strong>, I’ve historically accelerated business decision-making speeds by <strong>35%</strong>.
+            </p>
         </div>
-        <div style="height: 4px; background: rgba(255,255,255,0.1); border-radius: 2px; overflow: hidden;">
-          <div class="bar-fill" data-width="95" style="height: 100%; background: #38bdf8; width: 0%; transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1);"></div>
-        </div>  
-      </div>
 
-      <div class="bar-item">
-        <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem; color: #fff; font-size: 0.85rem;">
-          <span>Python & ML Models</span><span>92%</span>
+        <div class="about-card">
+            <span class="expert-icon">🤖</span>
+            <span class="stat-pill">GENAI PIONEER</span>
+            <h3>Agentic AI & MCP Architecture</h3>
+            <p style="font-size: 0.95rem; color: #94a3b8; line-height: 1.6;">
+                Currently leading AI innovation at <strong>Coforge</strong>, where I am standardizing the entire SDLC. 
+                I don't just build chatbots; I architect <strong>Agentic Workflows</strong> that reason and execute tasks autonomously. 
+                By implementing <strong>Model Context Protocol (MCP)</strong>, I ensure AI interactions are standardized, secure, and production-ready.
+            </p>
         </div>
-        <div style="height: 4px; background: rgba(255,255,255,0.1); border-radius: 2px; overflow: hidden;">
-          <div class="bar-fill" data-width="92" style="height: 100%; background: #38bdf8; width: 0%; transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1);"></div>
+
+        <div class="about-card">
+            <span class="expert-icon">📊</span>
+            <span class="stat-pill">MBA FINANCE</span>
+            <h3>ROI-Driven Engineering</h3>
+            <p style="font-size: 0.95rem; color: #94a3b8; line-height: 1.6;">
+                I believe AI must be profitable. 
+                Leveraging my <strong>MBA in Finance</strong>, I analyze "Cost-per-Token" and "Efficiency-Gains" to justify every architectural decision. 
+                My systems have achieved a <strong>60% gain in retrieval efficiency</strong> and a <strong>50% reduction in manual review costs</strong>.
+            </p>
         </div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- SKILLS -->
-<!-- <section id="skills">
-  <h2>Technical Ecosystem</h2>
-  
-  <div style="margin-bottom: 40px;">
-    <div style="margin-bottom: 15px;">
-      <div style="display:flex; justify-content:space-between; margin-bottom:5px;">
-        <span>Generative AI (RAG & Agentic AI)</span>
-        <span>95%</span>
-      </div>
-      <div style="background: #1f2937; height: 8px; border-radius: 4px;">
-        <div style="background: #38bdf8; width: 95%; height: 100%; border-radius: 4px;"></div>
-      </div>
-    </div>
-    
-    <div style="margin-bottom: 15px;">
-      <div style="display:flex; justify-content:space-between; margin-bottom:5px;">
-        <span>Machine Learning & MLOps</span>
-        <span>90%</span>
-      </div>
-      <div style="background: #1f2937; height: 8px; border-radius: 4px;">
-        <div style="background: #38bdf8; width: 90%; height: 100%; border-radius: 4px;"></div>
-      </div>
-    </div>
-  </div>
-
-  <div class="grid">
-    <div class="card">
-      <h3>GenAI Stack</h3>
-      <div class="tag-cloud">
-        <span class="tag">LangChain</span> <span class="tag">LlamaIndex</span>
-        <span class="tag">OpenAI</span> <span class="tag">FAISS</span>
-        <span class="tag">ChromaDB</span> <span class="tag">MCP Tools</span>
-      </div>
-    </div>
-    <div class="card">
-      <h3>Engineering</h3>
-      <div class="tag-cloud">
-        <span class="tag">Python</span> <span class="tag">Docker</span>
-        <span class="tag">Kubernetes</span> <span class="tag">FastAPI</span>
-        <span class="tag">AWS</span> <span class="tag">MLflow</span>
-      </div>
-    </div>
-  </div>
-
-  <div class="grid">
-    <div class="card">
-      <h3 style="color: #38bdf8;">Generative AI</h3>
-      <div class="tag-cloud">
-        <span class="tag">RAG</span> <span class="tag">LangChain</span> 
-        <span class="tag">LlamaIndex</span> <span class="tag">OpenAI</span> 
-        <span class="tag">Vector DBs (FAISS)</span> <span class="tag">Prompt Engineering</span>
-      </div>
     </div>
 
-    <div class="card">
-      <h3 style="color: #38bdf8;">Engineering & MLOps</h3>
-      <div class="tag-cloud">
-        <span class="tag">Python</span> <span class="tag">Docker</span> 
-        <span class="tag">Kubernetes</span> <span class="tag">MLflow</span> 
-        <span class="tag">FastAPI</span> <span class="tag">AWS/GCP</span>
-      </div>
+    <div style="margin-top: 4rem; padding: 2rem; background: rgba(56, 189, 248, 0.05); border-radius: 12px; border: 1px dashed rgba(56, 189, 248, 0.3);">
+        <h4 style="color: #fff; margin-bottom: 1rem; text-align: center;">Technical Philosophy</h4>
+        <p style="color: #94a3b8; text-align: center; font-style: italic; font-size: 1rem;">
+            "I standardize the chaos of AI development through rigorous protocols (MCP) and low-latency infrastructure (Uvicorn/FastAPI) to deliver systems that scale beyond the sandbox."
+        </p>
     </div>
-   </div> 
 </section>
 
 
-<section id="skills" style="background: #030712; padding: 100px 5%;">
-  <div style="max-width: 1100px; margin: 0 auto;">
-    <div style="text-transform: uppercase; letter-spacing: 0.15em; font-size: 0.75rem; color: #38bdf8; font-weight: 700; margin-bottom: 0.5rem;">Expertise</div>
-    <h2 style="font-family: 'Playfair Display', serif; font-size: 2.5rem; color: #fff; margin-bottom: 1rem;">Technical Ecosystem</h2>
-    <div style="width: 50px; height: 3px; background: #38bdf8; margin-bottom: 4rem;"></div>
 
-    <div class="bar-grid" id="barSkills" style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem 5rem; margin-bottom: 5rem;">
-      
-      <div class="bar-item">
-        <div style="display: flex; justify-content: space-between; margin-bottom: 0.7rem; color: rgba(255,255,255,0.9); font-size: 0.9rem; font-weight: 600;">
-          <span>Generative AI (RAG & Agentic AI)</span><span>95%</span>
-        </div>
-        <div style="height: 4px; background: rgba(255,255,255,0.05); border-radius: 2px; overflow: hidden;">
-          <div class="bar-fill" data-width="95" style="height: 100%; background: linear-gradient(90deg, #38bdf8, #818cf8); width: 0%; transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1);"></div>
-        </div>
-      </div>
 
-      <div class="bar-item">
-        <div style="display: flex; justify-content: space-between; margin-bottom: 0.7rem; color: rgba(255,255,255,0.9); font-size: 0.9rem; font-weight: 600;">
-          <span>Machine Learning & MLOps</span><span>92%</span>
-        </div>
-        <div style="height: 4px; background: rgba(255,255,255,0.05); border-radius: 2px; overflow: hidden;">
-          <div class="bar-fill" data-width="92" style="height: 100%; background: linear-gradient(90deg, #38bdf8, #818cf8); width: 0%; transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1);"></div>
-        </div>
-      </div>
+	  <section id="metrics" style="background: #030712; padding: 80px 5%;">
+	  <div style="max-width: 1100px; margin: 0 auto;">
+	  <h2 style="color: #fff; font-family: 'Playfair Display', serif; margin-bottom: 3rem;">Technical Proficiency</h2>
+	  <div class="bar-grid" id="barSkills1" style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem 5rem;">
 
-      <div class="bar-item">
-        <div style="display: flex; justify-content: space-between; margin-bottom: 0.7rem; color: rgba(255,255,255,0.9); font-size: 0.9rem; font-weight: 600;">
-          <span>Python & Backend Architecture</span><span>90%</span>
-        </div>
-        <div style="height: 4px; background: rgba(255,255,255,0.05); border-radius: 2px; overflow: hidden;">
-          <div class="bar-fill" data-width="90" style="height: 100%; background: linear-gradient(90deg, #38bdf8, #818cf8); width: 0%; transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1);"></div>
-        </div>
-      </div>
+	  <div class="bar-item">
+	  <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem; color: #fff; font-size: 0.85rem;">
+	  <span>Generative AI & RAG</span><span>95%</span>
+	  </div>
+	  <div style="height: 4px; background: rgba(255,255,255,0.1); border-radius: 2px; overflow: hidden;">
+	  <div class="bar-fill" data-width="95" style="height: 100%; background: #38bdf8; width: 0%; transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1);"></div>
+	  </div>  
+	  </div>
 
-      <div class="bar-item">
-        <div style="display: flex; justify-content: space-between; margin-bottom: 0.7rem; color: rgba(255,255,255,0.9); font-size: 0.9rem; font-weight: 600;">
-          <span>Strategic Decision Making</span><span>88%</span>
-        </div>
-        <div style="height: 4px; background: rgba(255,255,255,0.05); border-radius: 2px; overflow: hidden;">
-          <div class="bar-fill" data-width="88" style="height: 100%; background: linear-gradient(90deg, #38bdf8, #818cf8); width: 0%; transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1);"></div>
-        </div>
-      </div>
+	  <div class="bar-item">
+	  <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem; color: #fff; font-size: 0.85rem;">
+	  <span>Python & ML Models</span><span>92%</span>
+	  </div>
+	  <div style="height: 4px; background: rgba(255,255,255,0.1); border-radius: 2px; overflow: hidden;">
+	  <div class="bar-fill" data-width="92" style="height: 100%; background: #38bdf8; width: 0%; transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1);"></div>
+	  </div>
+	  </div>
 
-    </div>
+	  </div>
+	  </div>
+	  </section>
 
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
-      
-      <div style="background: #111827; padding: 2rem; border-radius: 12px; border: 1px solid #1f2937; border-top: 3px solid #38bdf8;">
-        <div style="font-size: 1.5rem; margin-bottom: 1rem;">🤖</div>
-        <h3 style="color: #fff; margin-bottom: 1rem; font-size: 1.1rem;">GenAI & LLMs</h3>
-        <div style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
-          <span class="sk-tag">RAG</span> <span class="sk-tag">LangChain</span> 
-          <span class="sk-tag">LlamaIndex</span> <span class="sk-tag">Vector DBs</span>
-          <span class="sk-tag">MCP Tools</span> <span class="sk-tag">Fine-tuning</span>
-        </div>
-      </div>
+	  <section id="skills" style="background: #030712; padding: 100px 5%; position: relative;">
+	  <div style="position: absolute; bottom: 0; left: 0; width: 300px; height: 300px; background: rgba(56, 189, 248, 0.03); filter: blur(100px); border-radius: 50%;"></div>
 
-      <div style="background: #111827; padding: 2rem; border-radius: 12px; border: 1px solid #1f2937; border-top: 3px solid #38bdf8;">
-        <div style="font-size: 1.5rem; margin-bottom: 1rem;">⚙️</div>
-        <h3 style="color: #fff; margin-bottom: 1rem; font-size: 1.1rem;">MLOps & Backend</h3>
-        <div style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
-          <span class="sk-tag">Docker</span> <span class="sk-tag">Kubernetes</span> 
-          <span class="sk-tag">FastAPI</span> <span class="sk-tag">MLflow</span>
-          <span class="sk-tag">Uvicorn</span> <span class="sk-tag">AWS/GCP</span>
-        </div>
-      </div>
+	  <div style="max-width: 1100px; margin: 0 auto; position: relative; z-index: 1;">
+	  <div style="text-transform: uppercase; letter-spacing: 0.15em; font-size: 0.75rem; color: #38bdf8; font-weight: 700; margin-bottom: 0.5rem;">Capabilities</div>
+	  <h2 style="font-family: 'Playfair Display', serif; font-size: clamp(2rem, 4vw, 2.8rem); color: #fff; margin-bottom: 1rem;">Technical Ecosystem</h2>
+	  <div style="width: 60px; height: 4px; background: linear-gradient(90deg, #38bdf8, #818cf8); margin-bottom: 4rem; border-radius: 2px;"></div>
 
-      <div style="background: #111827; padding: 2rem; border-radius: 12px; border: 1px solid #1f2937; border-top: 3px solid #38bdf8;">
-        <div style="font-size: 1.5rem; margin-bottom: 1rem;">📊</div>
-        <h3 style="color: #fff; margin-bottom: 1rem; font-size: 1.1rem;">Decision Intelligence</h3>
-        <div style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
-          <span class="sk-tag">Python</span> <span class="sk-tag">PyTorch</span> 
-          <span class="sk-tag">XGBoost</span> <span class="sk-tag">Time Series</span>
-          <span class="sk-tag">Tableau</span> <span class="sk-tag">SQL</span>
-        </div>
-      </div>
+	  <div class="bar-grid" id="barSkills2" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 2rem 6rem; margin-bottom: 5rem;">
 
-    </div>
-  </div>
-</section>
+	  <div class="bar-item">
+	  <div style="display: flex; justify-content: space-between; margin-bottom: 0.8rem; color: rgba(255,255,255,0.9); font-size: 0.95rem; font-weight: 600;">
+	  <span>Generative AI (RAG & Agentic AI)</span><span>95%</span>
+	  </div>
+	  <div style="height: 6px; background: rgba(255,255,255,0.05); border-radius: 10px; overflow: hidden;">
+	  <div class="bar-fill" data-width="95" style="height: 100%; background: linear-gradient(90deg, #38bdf8, #818cf8); width: 0%; transition: width 1.8s cubic-bezier(0.19, 1, 0.22, 1);"></div>
+	  </div>
+	  </div>
 
-<style>
-  .sk-tag {
-    font-size: 0.75rem;
-    padding: 0.35rem 0.8rem;
-    background: #1f2937;
-    color: #94a3b8;
-    border-radius: 4px;
-    font-weight: 500;
-    border: 1px solid rgba(255,255,255,0.05);
-    transition: 0.3s;
-  }
-  .sk-tag:hover {
-    background: #38bdf8;
-    color: #030712;
-    transform: translateY(-2px);
-  }
-</style>
- -->
+	  <div class="bar-item">
+	  <div style="display: flex; justify-content: space-between; margin-bottom: 0.8rem; color: rgba(255,255,255,0.9); font-size: 0.95rem; font-weight: 600;">
+	  <span>Machine Learning & MLOps</span><span>92%</span>
+	  </div>
+	  <div style="height: 6px; background: rgba(255,255,255,0.05); border-radius: 10px; overflow: hidden;">
+	  <div class="bar-fill" data-width="92" style="height: 100%; background: linear-gradient(90deg, #38bdf8, #818cf8); width: 0%; transition: width 1.8s cubic-bezier(0.19, 1, 0.22, 1);"></div>
+	  </div>
+	  </div>
 
-<section id="skills" style="background: #030712; padding: 100px 5%; position: relative;">
-  <div style="position: absolute; bottom: 0; left: 0; width: 300px; height: 300px; background: rgba(56, 189, 248, 0.03); filter: blur(100px); border-radius: 50%;"></div>
+	  <div class="bar-item">
+	  <div style="display: flex; justify-content: space-between; margin-bottom: 0.8rem; color: rgba(255,255,255,0.9); font-size: 0.95rem; font-weight: 600;">
+	  <span>Python Architecture & FastAPI</span><span>90%</span>
+	  </div>
+	  <div style="height: 6px; background: rgba(255,255,255,0.05); border-radius: 10px; overflow: hidden;">
+	  <div class="bar-fill" data-width="90" style="height: 100%; background: linear-gradient(90deg, #38bdf8, #818cf8); width: 0%; transition: width 1.8s cubic-bezier(0.19, 1, 0.22, 1);"></div>
+	  </div>
+	  </div>
 
-  <div style="max-width: 1100px; margin: 0 auto; position: relative; z-index: 1;">
-    <div style="text-transform: uppercase; letter-spacing: 0.15em; font-size: 0.75rem; color: #38bdf8; font-weight: 700; margin-bottom: 0.5rem;">Capabilities</div>
-    <h2 style="font-family: 'Playfair Display', serif; font-size: clamp(2rem, 4vw, 2.8rem); color: #fff; margin-bottom: 1rem;">Technical Ecosystem</h2>
-    <div style="width: 60px; height: 4px; background: linear-gradient(90deg, #38bdf8, #818cf8); margin-bottom: 4rem; border-radius: 2px;"></div>
+	  <div class="bar-item">
+	  <div style="display: flex; justify-content: space-between; margin-bottom: 0.8rem; color: rgba(255,255,255,0.9); font-size: 0.95rem; font-weight: 600;">
+	  <span>Strategic Data Intelligence</span><span>88%</span>
+	  </div>
+	  <div style="height: 6px; background: rgba(255,255,255,0.05); border-radius: 10px; overflow: hidden;">
+	  <div class="bar-fill" data-width="88" style="height: 100%; background: linear-gradient(90deg, #38bdf8, #818cf8); width: 0%; transition: width 1.8s cubic-bezier(0.19, 1, 0.22, 1);"></div>
+	  </div>
+	  </div>
+	  </div>
 
-    <div class="bar-grid" id="barSkills" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 2rem 6rem; margin-bottom: 5rem;">
-      
-      <div class="bar-item">
-        <div style="display: flex; justify-content: space-between; margin-bottom: 0.8rem; color: rgba(255,255,255,0.9); font-size: 0.95rem; font-weight: 600;">
-          <span>Generative AI (RAG & Agentic AI)</span><span>95%</span>
-        </div>
-        <div style="height: 6px; background: rgba(255,255,255,0.05); border-radius: 10px; overflow: hidden;">
-          <div class="bar-fill" data-width="95" style="height: 100%; background: linear-gradient(90deg, #38bdf8, #818cf8); width: 0%; transition: width 1.8s cubic-bezier(0.19, 1, 0.22, 1);"></div>
-        </div>
-      </div>
+	  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2.5rem;">
 
-      <div class="bar-item">
-        <div style="display: flex; justify-content: space-between; margin-bottom: 0.8rem; color: rgba(255,255,255,0.9); font-size: 0.95rem; font-weight: 600;">
-          <span>Machine Learning & MLOps</span><span>92%</span>
-        </div>
-        <div style="height: 6px; background: rgba(255,255,255,0.05); border-radius: 10px; overflow: hidden;">
-          <div class="bar-fill" data-width="92" style="height: 100%; background: linear-gradient(90deg, #38bdf8, #818cf8); width: 0%; transition: width 1.8s cubic-bezier(0.19, 1, 0.22, 1);"></div>
-        </div>
-      </div>
+	  <div class="tech-card">
+	  <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem;">
+	  <div style="width: 40px; height: 40px; background: rgba(56, 189, 248, 0.1); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem;">🤖</div>
+	  <h3 style="color: #fff; font-size: 1.1rem; margin: 0; font-weight: 700;">GenAI & LLM Ops</h3>
+	  </div>
+	  <div class="tag-cloud">
+	  <span class="sk-tag">RAG Pipelines</span> <span class="sk-tag">LangChain</span> 
+	  <span class="sk-tag">LlamaIndex</span> <span class="sk-tag">OpenAI / LLaMA</span>
+	  <span class="sk-tag">Vector DBs (FAISS/Chroma)</span> <span class="sk-tag">MCP Tools</span>
+	  <span class="sk-tag">Prompt Engineering</span> <span class="sk-tag">Fine-tuning</span>
+	  </div>
+	  </div>
 
-      <div class="bar-item">
-        <div style="display: flex; justify-content: space-between; margin-bottom: 0.8rem; color: rgba(255,255,255,0.9); font-size: 0.95rem; font-weight: 600;">
-          <span>Python Architecture & FastAPI</span><span>90%</span>
-        </div>
-        <div style="height: 6px; background: rgba(255,255,255,0.05); border-radius: 10px; overflow: hidden;">
-          <div class="bar-fill" data-width="90" style="height: 100%; background: linear-gradient(90deg, #38bdf8, #818cf8); width: 0%; transition: width 1.8s cubic-bezier(0.19, 1, 0.22, 1);"></div>
-        </div>
-      </div>
+	  <div class="tech-card">
+	  <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem;">
+	  <div style="width: 40px; height: 40px; background: rgba(56, 189, 248, 0.1); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem;">⚙️</div>
+	  <h3 style="color: #fff; font-size: 1.1rem; margin: 0; font-weight: 700;">Infrastructure & MLOps</h3>
+	  </div>
+	  <div class="tag-cloud">
+	  <span class="sk-tag">Docker</span> <span class="sk-tag">Kubernetes</span> 
+	  <span class="sk-tag">FastAPI</span> <span class="sk-tag">Uvicorn</span>
+	  <span class="sk-tag">MLflow</span> <span class="sk-tag">Airflow</span>
+	  <span class="sk-tag">AWS / GCP / Azure</span> <span class="sk-tag">CI/CD (GitHub Actions)</span>
+	  </div>
+	  </div>
 
-      <div class="bar-item">
-        <div style="display: flex; justify-content: space-between; margin-bottom: 0.8rem; color: rgba(255,255,255,0.9); font-size: 0.95rem; font-weight: 600;">
-          <span>Strategic Data Intelligence</span><span>88%</span>
-        </div>
-        <div style="height: 6px; background: rgba(255,255,255,0.05); border-radius: 10px; overflow: hidden;">
-          <div class="bar-fill" data-width="88" style="height: 100%; background: linear-gradient(90deg, #38bdf8, #818cf8); width: 0%; transition: width 1.8s cubic-bezier(0.19, 1, 0.22, 1);"></div>
-        </div>
-      </div>
-    </div>
+	  <div class="tech-card">
+	  <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem;">
+	  <div style="width: 40px; height: 40px; background: rgba(56, 189, 248, 0.1); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem;">📊</div>
+	  <h3 style="color: #fff; font-size: 1.1rem; margin: 0; font-weight: 700;">Analytics & Modeling</h3>
+	  </div>
+	  <div class="tag-cloud">
+	  <span class="sk-tag">Python</span> <span class="sk-tag">PyTorch / TF</span> 
+	  <span class="sk-tag">XGBoost / Prophet</span> <span class="sk-tag">NLP</span>
+	  <span class="sk-tag">Time Series</span> <span class="sk-tag">SQL / NoSQL</span>
+	  <span class="sk-tag">Tableau / Power BI</span> <span class="sk-tag">ETL Automation</span>
+	  </div>
+	  </div>
 
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2.5rem;">
-      
-      <div class="tech-card">
-        <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem;">
-          <div style="width: 40px; height: 40px; background: rgba(56, 189, 248, 0.1); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem;">🤖</div>
-          <h3 style="color: #fff; font-size: 1.1rem; margin: 0; font-weight: 700;">GenAI & LLM Ops</h3>
-        </div>
-        <div class="tag-cloud">
-          <span class="sk-tag">RAG Pipelines</span> <span class="sk-tag">LangChain</span> 
-          <span class="sk-tag">LlamaIndex</span> <span class="sk-tag">OpenAI / LLaMA</span>
-          <span class="sk-tag">Vector DBs (FAISS/Chroma)</span> <span class="sk-tag">MCP Tools</span>
-          <span class="sk-tag">Prompt Engineering</span> <span class="sk-tag">Fine-tuning</span>
-        </div>
-      </div>
+	  </div>
+	  </div>
+	  </section>
 
-      <div class="tech-card">
-        <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem;">
-          <div style="width: 40px; height: 40px; background: rgba(56, 189, 248, 0.1); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem;">⚙️</div>
-          <h3 style="color: #fff; font-size: 1.1rem; margin: 0; font-weight: 700;">Infrastructure & MLOps</h3>
-        </div>
-        <div class="tag-cloud">
-          <span class="sk-tag">Docker</span> <span class="sk-tag">Kubernetes</span> 
-          <span class="sk-tag">FastAPI</span> <span class="sk-tag">Uvicorn</span>
-          <span class="sk-tag">MLflow</span> <span class="sk-tag">Airflow</span>
-          <span class="sk-tag">AWS / GCP / Azure</span> <span class="sk-tag">CI/CD (GitHub Actions)</span>
-        </div>
-      </div>
+	  <style>
+	  .tech-card {
+	  background: #0f172a; 
+	  padding: 2.2rem; 
+	  border-radius: 16px; 
+	  border: 1px solid #1f2937; 
+	  transition: all 0.4s ease;
+	  position: relative;
+	  }
+	  .tech-card:hover {
+	  border-color: #38bdf8;
+	  transform: translateY(-5px);
+	  box-shadow: 0 15px 30px rgba(0,0,0,0.4);
+	  }
+	  .tech-card::before {
+	  content: "";
+	  position: absolute;
+	  top: 0; left: 0; width: 100%; height: 100%;
+	  border-radius: 16px;
+	  background: linear-gradient(135deg, rgba(56,189,248,0.05) 0%, transparent 50%);
+	  pointer-events: none;
+	  }
+	  .tag-cloud {
+	  display: flex;
+	  flex-wrap: wrap;
+	  gap: 0.6rem;
+	  }
+	  .sk-tag {
+	  font-size: 0.72rem;
+	  padding: 0.4rem 0.9rem;
+	  background: rgba(255,255,255,0.03);
+	  color: #94a3b8;
+	  border-radius: 6px;
+	  font-weight: 600;
+	  border: 1px solid rgba(255,255,255,0.08);
+	  transition: 0.3s;
+	  letter-spacing: 0.02em;
+	  }
+	  .sk-tag:hover {
+	  background: rgba(56, 189, 248, 0.1);
+	  border-color: #38bdf8;
+	  color: #38bdf8;
+	  }
+	  </style>
 
-      <div class="tech-card">
-        <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem;">
-          <div style="width: 40px; height: 40px; background: rgba(56, 189, 248, 0.1); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem;">📊</div>
-          <h3 style="color: #fff; font-size: 1.1rem; margin: 0; font-weight: 700;">Analytics & Modeling</h3>
-        </div>
-        <div class="tag-cloud">
-          <span class="sk-tag">Python</span> <span class="sk-tag">PyTorch / TF</span> 
-          <span class="sk-tag">XGBoost / Prophet</span> <span class="sk-tag">NLP</span>
-          <span class="sk-tag">Time Series</span> <span class="sk-tag">SQL / NoSQL</span>
-          <span class="sk-tag">Tableau / Power BI</span> <span class="sk-tag">ETL Automation</span>
-        </div>
-      </div>
+	  <!-- CASE -->
+	  <section id="case" style="background: #030712; padding: 120px 5%; position: relative; overflow: hidden;">
+	  <div style="position: absolute; top: 20%; right: -5%; width: 500px; height: 500px; background: radial-gradient(circle, rgba(56,189,248,0.03) 0%, transparent 70%);"></div>
 
-    </div>
-  </div>
-</section>
+	  <div style="max-width: 1200px; margin: 0 auto; position: relative; z-index: 1;">
+	  <div style="text-align: center; margin-bottom: 6rem;">
+	  <div style="text-transform: uppercase; letter-spacing: 0.3em; font-size: 0.7rem; color: #38bdf8; font-weight: 800; margin-bottom: 1rem;">Engineering Impact</div>
+	  <h2 style="font-family: 'Playfair Display', serif; font-size: clamp(2.5rem, 5vw, 3.5rem); color: #fff; margin-bottom: 2rem;">Strategic Case Studies</h2>
+	  <div style="width: 80px; height: 4px; background: linear-gradient(90deg, #38bdf8, #818cf8); margin: 0 auto; border-radius: 10px;"></div>
+	  </div>
 
-<style>
-  .tech-card {
-    background: #0f172a; 
-    padding: 2.2rem; 
-    border-radius: 16px; 
-    border: 1px solid #1f2937; 
-    transition: all 0.4s ease;
+	  <div style="display: flex; flex-direction: column; gap: 8rem;">
+
+	  <div class="extraordinary-card">
+	  <div class="card-number">01</div>
+	  <div class="card-grid">
+	  <div class="card-narrative">
+	  <span class="client-tag">Coforge · Senior Technical Lead</span>
+	  <h3 class="premium-title">AI-Enabled SDLC Platform & MCP Tooling</h3>
+	  <p class="premium-desc">Orchestrated the engineering of a cross-functional platform that standardizes AI-driven interactions across every stage of the software lifecycle[cite: 98, 99].</p>
+
+	  <div class="metric-ribbon">
+	  <div class="metric-item"><strong>Objective</strong><span>Low-Latency API</span></div>
+	  <div class="metric-item"><strong>Innovation</strong><span>MCP Protocol</span></div>
+	  <div class="metric-item"><strong>Status</strong><span>Production Ready</span></div>
+	  </div>
+
+	  <div class="case-tags">
+	  <span class="p-tag">Uvicorn</span> <span class="p-tag">Modular Architecture</span> <span class="p-tag">API Orchestration</span>
+	  </div>
+	  </div>
+
+	  <div class="card-architecture">
+	  <div class="arch-header">Architectural Insight</div>
+	  <div class="arch-body">
+	  <div class="arch-step"><span>01</span><p>Standardized AI interaction protocol using <strong>MCP</strong>[cite: 99].</p></div>
+	  <div class="arch-step"><span>02</span><p>Deployed <strong>Uvicorn-based</strong> backend services for low-latency inference[cite: 100, 103].</p></div>
+	  <div class="arch-step"><span>03</span><p>Integrated <strong>GenAI validation workflows</strong> into production pipelines[cite: 102, 105].</p></div>
+	  </div>
+	  <div class="arch-footer">Impact: Boosted Engineering Productivity[cite: 105].</div>
+	  </div>
+	  </div>
+	  </div>
+
+	  <div class="extraordinary-card" style="border-right: 1px solid rgba(56, 189, 248, 0.2); border-left: none; text-align: right;">
+	  <div class="card-number" style="left: auto; right: -40px;">02</div>
+	  <div class="card-grid">
+	  <div class="card-architecture" style="order: 1; text-align: left;">
+	  <div class="arch-header" style="background: rgba(129, 140, 248, 0.1); color: #818cf8;">Agent Workflow</div>
+	  <div class="arch-body">
+	  <div class="arch-step"><span>A</span><p>Built <strong>LangChain Agents</strong> for autonomous document classification[cite: 119].</p></div>
+	  <div class="arch-step"><span>B</span><p>Applied <strong>Function Calling & Memory</strong> for adaptive conversations[cite: 120].</p></div>
+	  <div class="arch-step"><span>C</span><p>Automated <strong>Insurance Claim Handling</strong> via dynamic tool use[cite: 120].</p></div>
+	  </div>
+	  <div class="arch-footer" style="color: #818cf8;">Impact: 50% Reduction in Manual Review.</div>
+	  </div>
+
+	  <div class="card-narrative" style="order: 2;">
+	  <span class="client-tag">Genpact · AI Innovation</span>
+	  <h3 class="premium-title">Dynamic Agentic Claims Handler</h3>
+	  <p class="premium-desc">Developed an advanced agentic ecosystem capable of complex reasoning and multi-step task execution for insurance operations[cite: 119, 120].</p>
+
+	  <div class="metric-ribbon" style="justify-content: flex-end;">
+	  <div class="metric-item"><strong>Model</strong><span>GPT-3.5 / OpenAI</span></div>
+	  <div class="metric-item"><strong>Efficiency</strong><span>+60% Search</span></div>
+	  </div>
+
+	  <div class="case-tags" style="justify-content: flex-end;">
+	  <span class="p-tag">LangChain</span> <span class="p-tag">Tool Use</span> <span class="p-tag">Memory Systems</span>
+	  </div>
+	  </div>
+	  </div>
+	  </div>
+
+	  </div>
+	  </div>
+	  </section>
+
+	  <style>
+
+
+footer {
+    background: #020617;
+    padding: 60px 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    text-align: center;
     position: relative;
-  }
-  .tech-card:hover {
+}
+
+.footer-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    display: block;
+}
+
+.footer-logo span {
+    color: var(--primary);
+}
+
+.footer-socials {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin: 2rem 0;
+}
+
+.footer-link {
+    color: #94a3b8;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: 0.3s;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+.footer-link:hover {
+    color: var(--primary);
+    text-shadow: 0 0 10px rgba(56, 189, 248, 0.5);
+}
+
+.footer-copyright {
+    color: #475569;
+    font-size: 0.8rem;
+    margin-top: 2rem;
+    letter-spacing: 0.05em;
+}
+
+.footer-gradient-line {
+    height: 2px;
+    width: 100px;
+    background: var(--combined-grad);
+    margin: 0 auto 2rem;
+    border-radius: 10px;
+}
+
+
+.contact-wrapper {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 2rem;
+    margin-top: 3rem;
+}
+
+.contact-card-premium {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 2.5rem;
+    border-radius: 20px;
+    min-width: 320px;
+    backdrop-filter: blur(12px);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative;
+    overflow: hidden;
+}
+
+.contact-card-premium:hover {
+    transform: translateY(-10px);
     border-color: #38bdf8;
-    transform: translateY(-5px);
-    box-shadow: 0 15px 30px rgba(0,0,0,0.4);
-  }
-  .tech-card::before {
+    background: rgba(56, 189, 248, 0.03);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+}
+
+.contact-icon-circle {
+    width: 60px;
+    height: 60px;
+    background: rgba(56, 189, 248, 0.1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    margin: 0 auto 1.5rem;
+    border: 1px solid rgba(56, 189, 248, 0.2);
+    transition: 0.3s;
+}
+
+.contact-card-premium:hover .contact-icon-circle {
+    background: var(--combined-grad);
+    color: #030712;
+    transform: rotate(15deg);
+}
+
+.contact-label {
+    display: block;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    font-size: 0.7rem;
+    color: #38bdf8;
+    font-weight: 800;
+    margin-bottom: 0.5rem;
+}
+
+.contact-value {
+    font-size: 1.2rem;
+    color: #fff;
+    text-decoration: none;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.contact-value:hover {
+    color: #818cf8;
+}
+
+	  .extraordinary-card {
+	  position: relative;
+	  padding: 4rem;
+	  background: rgba(255, 255, 255, 0.02);
+	  border-radius: 24px;
+	  border-left: 1px solid rgba(56, 189, 248, 0.2);
+	  backdrop-filter: blur(10px);
+	  transition: 0.5s ease;
+	  }
+	  .extraordinary-card:hover {
+	  background: rgba(255, 255, 255, 0.04);
+	  transform: scale(1.01);
+	  }
+	  .card-number {
+	  position: absolute;
+	  top: -30px; left: -40px;
+	  font-size: 8rem;
+	  font-weight: 900;
+	  color: rgba(255,255,255,0.03);
+	  font-family: 'Inter', sans-serif;
+	  line-height: 1;
+	  }
+	  .card-grid {
+	  display: grid;
+	  grid-template-columns: 1.2fr 0.8fr;
+	  gap: 4rem;
+	  align-items: center;
+	  }
+	  .client-tag {
+	  font-size: 0.75rem;
+	  font-weight: 700;
+	  color: #38bdf8;
+	  text-transform: uppercase;
+	  letter-spacing: 0.1em;
+	  }
+	  .premium-title {
+	  font-family: 'Playfair Display', serif;
+	  font-size: 2.2rem;
+	  color: #fff;
+	  margin: 1rem 0;
+	  }
+	  .premium-desc {
+	  color: #94a3b8;
+	  line-height: 1.8;
+	  font-size: 1.1rem;
+	  margin-bottom: 2rem;
+	  }
+	  .metric-ribbon {
+	  display: flex;
+	  gap: 3rem;
+	  margin-bottom: 2.5rem;
+	  }
+	  .metric-item strong {
+	  display: block;
+	  font-size: 0.65rem;
+	  text-transform: uppercase;
+	  color: #38bdf8;
+	  letter-spacing: 0.05em;
+	  }
+	  .metric-item span {
+	  font-size: 1.2rem;
+	  font-weight: 700;
+	  color: #fff;
+	  }
+	  .case-tags {
+	  display: flex;
+	  flex-wrap: wrap;
+	  gap: 0.8rem;
+	  }
+	  .p-tag {
+	  font-size: 0.7rem;
+	  padding: 0.4rem 1rem;
+	  background: rgba(56, 189, 248, 0.05);
+	  border: 1px solid rgba(56, 189, 248, 0.15);
+	  color: #38bdf8;
+	  border-radius: 4px;
+	  font-weight: 700;
+	  }
+	  /* Architecture Box Styling */
+	  .card-architecture {
+	  background: #0f172a;
+	  border-radius: 16px;
+	  border: 1px solid #1f2937;
+	  overflow: hidden;
+	  box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+	  }
+	  .arch-header {
+	  background: rgba(56, 189, 248, 0.1);
+	  padding: 1rem 1.5rem;
+	  font-size: 0.8rem;
+	  font-weight: 800;
+	  color: #38bdf8;
+	  text-transform: uppercase;
+	  }
+	  .arch-body {
+	  padding: 2rem 1.5rem;
+	  }
+	  .arch-step {
+	  display: flex;
+	  gap: 1rem;
+	  margin-bottom: 1.5rem;
+	  }
+	  .arch-step span {
+	  font-weight: 800;
+	  color: #38bdf8;
+	  font-size: 0.9rem;
+	  }
+	  .arch-step p {
+	  font-size: 0.9rem;
+	  color: #d1d5db;
+	  margin: 0;
+	  line-height: 1.5;
+	  }
+	  .arch-footer {
+	  padding: 1rem 1.5rem;
+	  background: rgba(255,255,255,0.02);
+	  font-size: 0.8rem;
+	  font-weight: 700;
+	  color: #fff;
+	  border-top: 1px solid #1f2937;
+	  }
+
+	  @media (max-width: 992px) {
+	  .card-grid { grid-template-columns: 1fr; gap: 2rem; }
+	  .extraordinary-card { padding: 2rem; text-align: left !important; border-right: none !important; border-left: 1px solid rgba(56, 189, 248, 0.2) !important; }
+	  .metric-ribbon, .case-tags { justify-content: flex-start !important; }
+	  .card-narrative { order: 1 !important; }
+	  .card-architecture { order: 2 !important; }
+	  }
+	  </style>
+
+	  <!-- TIMELINE -->
+
+<section id="timeline">
+    <div style="margin-bottom: 4rem;">
+        <h2 class="about-header-glow">Professional Trajectory</h2>
+        <p style="color: #94a3b8; font-size: 1.1rem;">Scaling Intelligence: From Data Scientist to AI Technical Lead.</p>
+    </div>
+
+    <div class="trajectory-container">
+        <div class="trajectory-block" style="border-left-color: #38bdf8;">
+            <div class="block-header">
+                <div class="block-title">
+                    <span>Senior Technical Lead</span>
+                    <h3>Coforge</h3>
+                </div>
+                <div class="block-date">JUNE 2025 — PRESENT</div>
+            </div>
+            <p style="color: #cbd5e1; line-height: 1.7;">
+                Architecting the enterprise <strong>AI-enabled SDLC platform</strong>. Standardizing AI interactions via <strong>Model Context Protocol (MCP)</strong> to bridge the gap between model potential and production reality.
+            </p>
+            <div class="tech-pill-container">
+                <span class="tech-pill">MCP Tools</span> <span class="tech-pill">Uvicorn</span> <span class="tech-pill">GenAI Automation</span> <span class="tech-pill">Leadership</span>
+            </div>
+        </div>
+
+        <div class="trajectory-block" style="border-left-color: #818cf8;">
+            <div class="block-header">
+                <div class="block-title">
+                    <span>Assistant Manager (Data Scientist)</span>
+                    <h3>Genpact India</h3>
+                </div>
+                <div class="block-date">JAN 2022 — APR 2025</div>
+            </div>
+            <p style="color: #cbd5e1; line-height: 1.7;">
+                Engineered <strong>Agentic RAG pipelines</strong> and automated complex ML workflows. Leveraged XGBoost for 35% faster decision-making and achieved <strong>60% gains in search efficiency</strong>.
+            </p>
+            <div class="tech-pill-container">
+                <span class="tech-pill">Agentic AI</span> <span class="tech-pill">Python</span> <span class="tech-pill">Airflow</span> <span class="tech-pill">Docker</span> <span class="tech-pill">PyTorch</span>
+            </div>
+        </div>
+
+        <div class="trajectory-block" style="border-left-color: #94a3b8;">
+            <div class="block-header">
+                <div class="block-title">
+                    <span>Data Analyst</span>
+                    <h3>Deloitte</h3>
+                </div>
+                <div class="block-date">AUG 2018 — FEB 2021</div>
+            </div>
+            <p style="color: #cbd5e1; line-height: 1.7;">
+                Optimized high-volume ETL processes and SQL reporting engines. Cut data cycle times by <strong>30%</strong> through custom automation scripts for global financial clients.
+            </p>
+            <div class="tech-pill-container">
+                <span class="tech-pill">ETL Automation</span> <span class="tech-pill">SQL</span> <span class="tech-pill">Tableau</span> <span class="tech-pill">Data Integrity</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- 
+<section id="timeline">
+    <div style="text-align: left; margin-bottom: 5rem;">
+        <h2 class="about-header-glow">Strategic Career Roadmap</h2>
+        <p style="color: #94a3b8;">A decade of evolution from data modeling to enterprise AI leadership.</p>
+    </div>
+
+    <div class="trajectory-wrapper">
+        <div class="trajectory-line"></div>
+
+        <div class="trajectory-item">
+            <div class="trajectory-dot"></div>
+            <div class="trajectory-card">
+                <div class="company-name">Coforge · Senior Technical Lead</div>
+                <h3 class="role-title">Enterprise AI Architect</h3>
+                <span class="tenure-tag">JUNE 2025 — PRESENT</span>
+                <ul class="impact-list">
+                    <li>Pioneering the <strong>AI-enabled SDLC platform</strong> to standardize software delivery through automation.</li>
+                    <li>Standardizing AI interactions using <strong>Model Context Protocol (MCP)</strong> for enterprise-scale integration.</li>
+                    <li>Orchestrating <strong>Uvicorn-based backend services</strong> for high-concurrency, low-latency AI inference.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="trajectory-item">
+            <div class="trajectory-dot" style="border-color: #818cf8;"></div>
+            <div class="trajectory-card">
+                <div class="company-name">Genpact · Assistant Manager</div>
+                <h3 class="role-title">Data Scientist & AI Innovator</h3>
+                <span class="tenure-tag">JAN 2022 — APR 2025</span>
+                <ul class="impact-list">
+                    <li>Engineered <strong>Agentic RAG pipelines</strong> that boosted information retrieval efficiency by <strong>60%</strong>.</li>
+                    <li>Automated critical ML pipelines using <strong>Airflow and Docker</strong>, reducing manual ops by 40%.</li>
+                    <li>Implemented <strong>XGBoost forecasting</strong>, accelerating business decision-making speed by <strong>35%</strong>.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="trajectory-item">
+            <div class="trajectory-dot" style="border-color: #94a3b8;"></div>
+            <div class="trajectory-card">
+                <div class="company-name">Deloitte · Data Analyst</div>
+                <h3 class="role-title">Decision Intelligence Specialist</h3>
+                <span class="tenure-tag">AUG 2018 — FEB 2021</span>
+                <ul class="impact-list">
+                    <li>Optimized <strong>ETL automation processes</strong>, cutting data cycle times by 30% for global clients.</li>
+                    <li>Architected SQL-driven reporting engines for high-stakes financial data integrity.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+	  <section id="timeline">
+	  <h2>Professional Trajectory</h2>
+	  <div class="grid">
+	  <div class="card">
+	  <span class="tag" style="background:#38bdf8; color:black; padding:2px 6px; border-radius:4px; font-size:10px;">PRESENT</span>
+	  <h3>Coforge</h3>
+	  <p><b>Senior Technical Lead</b> (June 2025 – Present) [cite: 97]</p>
+	  <ul>
+	  <li>Led AI-enabled SDLC platform development[cite: 98].</li>
+	  <li>Implemented MCP tools to standardize AI interactions[cite: 99].</li>
+	  <li>Built Uvicorn-based scalable backend services[cite: 100].</li>
+	  </ul>
+	  </div>
+	  <div class="card">
+	  <h3>Genpact India</h3>
+	  <p><b>Assistant Manager (Data Scientist)</b> (Jan 2022 – Apr 2025) [cite: 112, 114]</p>
+	  <ul>
+	  <li>Reduced decision-making time by 35% using XGBoost[cite: 115].</li>
+	  <li>Automated ML pipelines with Airflow and Docker[cite: 116].</li>
+	  </ul>
+	  </div>
+	  <div class="card">
+	  <h3>Deloitte</h3>
+	  <p><b>Data Analyst</b> (Aug 2018 – Feb 2021) [cite: 131, 132]</p>
+	  <ul>
+	  <li>Automated ETL processes, reducing cycle time by 30%[cite: 135].</li>
+	  </ul>
+	  </div>
+	  </div>
+	  </section> -->
+
+	  <!-- DEMOS -->
+	  <!-- <section id="demos">
+	  <h2>Live Demos</h2>
+	  <div class="grid">
+	  <div class="card">RAG Demo (Add link)</div>
+	  <div class="card">Forecast Demo (Add link)</div>
+	  </div>
+	  </section> -->
+
+	  <!-- Education -->
+
+	  <section id="education" style="background: #0b0f19; padding: 100px 5%;">
+	  <div style="max-width: 1100px; margin: 0 auto;">
+	  <div style="text-transform: uppercase; letter-spacing: 0.15em; font-size: 0.75rem; color: #38bdf8; font-weight: 700; margin-bottom: 0.5rem;">Academia & Credentials</div>
+	  <h2 style="font-family: 'Playfair Display', serif; font-size: 2.5rem; color: #fff; margin-bottom: 1rem;">Education & Certifications</h2>
+	  <div style="width: 50px; height: 3px; background: #38bdf8; margin-bottom: 4rem;"></div>
+
+	  <div style="display: grid; grid-template-columns: 1fr 1.5fr; gap: 4rem;">
+
+	  <div style="display: flex; flex-direction: column; gap: 2rem;">
+	  <h3 style="color: #fff; font-size: 1.2rem; margin-bottom: 1rem; opacity: 0.8;">Formal Education</h3>
+
+	  <div class="edu-card-premium">
+	  <div style="color: #38bdf8; font-weight: 700; font-size: 0.8rem; margin-bottom: 0.5rem;">2022 — 2024</div>
+	  <h4 style="color: #fff; margin: 0; font-size: 1.1rem;">Master of Business Administration (MBA)</h4>
+	  <p style="color: #94a3b8; font-size: 0.9rem; margin: 5px 0;">Finance & Financial Management Services</p>
+	  <div style="font-size: 0.85rem; color: #fff; opacity: 0.6;">IGNOU · India</div>
+	  </div>
+
+	  <div class="edu-card-premium">
+	  <div style="color: #38bdf8; font-weight: 700; font-size: 0.8rem; margin-bottom: 0.5rem;">2014 — 2017</div>
+	  <h4 style="color: #fff; margin: 0; font-size: 1.1rem;">Bachelor of Commerce (B.Com)</h4>
+	  <div style="font-size: 0.85rem; color: #fff; opacity: 0.6; margin-top: 5px;">University of Delhi · India</div>
+	  </div>
+	  </div>
+
+	  <div>
+	  <h3 style="color: #fff; font-size: 1.2rem; margin-bottom: 2rem; opacity: 0.8;">Professional Certifications</h3>
+	  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+
+	  <div class="cert-item-premium">
+	  <div class="cert-icon">🏷️</div>
+	  <div>
+	  <div class="cert-title">Applied Machine Learning: Algorithms</div>
+	  <div class="cert-provider">LinkedIn Learning</div>
+	  </div>
+	  </div>
+
+	  <div class="cert-item-premium">
+	  <div class="cert-icon">🏷️</div>
+	  <div>
+	  <div class="cert-title">Foundations of NumPy</div>
+	  <div class="cert-provider">LinkedIn Learning</div>
+	  </div>
+	  </div>
+
+	  <div class="cert-item-premium">
+	  <div class="cert-icon">📊</div>
+	  <div>
+	  <div class="cert-title">Data Science in Python</div>
+	  <div class="cert-provider">Coursera</div>
+	  </div>
+	  </div>
+
+	  <div class="cert-item-premium">
+	  <div class="cert-icon">☁️</div>
+	  <div>
+	  <div class="cert-title">Cloud for CEOs</div>
+	  <div class="cert-provider">LinkedIn Learning</div>
+	  </div>
+	  </div>
+
+	  <div class="cert-item-premium">
+	  <div class="cert-icon">⚙️</div>
+	  <div>
+	  <div class="cert-title">Microsoft Power Automate</div>
+	  <div class="cert-provider">LinkedIn Learning</div>
+	  </div>
+	  </div>
+
+	  <div class="cert-item-premium">
+	  <div class="cert-icon">🗄️</div>
+	  <div>
+	  <div class="cert-title">Introduction to SQL</div>
+	  <div class="cert-provider">Coursera</div>
+	  </div>
+	  </div>
+
+	  </div>
+	  </div>
+	  </div>
+	  </div>
+	  </section>
+
+	  <style>
+
+
+.trajectory-modern-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+}
+
+.career-node {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-top: 4px solid #38bdf8;
+    padding: 2.5rem;
+    border-radius: 12px;
+    position: relative;
+    transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.career-node:hover {
+    background: rgba(56, 189, 248, 0.04);
+    transform: translateY(-10px);
+    border-top-color: #818cf8;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+}
+
+.career-node::after {
     content: "";
     position: absolute;
     top: 0; left: 0; width: 100%; height: 100%;
-    border-radius: 16px;
-    background: linear-gradient(135deg, rgba(56,189,248,0.05) 0%, transparent 50%);
+    background: linear-gradient(180deg, rgba(56, 189, 248, 0.03) 0%, transparent 100%);
     pointer-events: none;
-  }
-  .tag-cloud {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.6rem;
-  }
-  .sk-tag {
-    font-size: 0.72rem;
-    padding: 0.4rem 0.9rem;
-    background: rgba(255,255,255,0.03);
-    color: #94a3b8;
-    border-radius: 6px;
-    font-weight: 600;
-    border: 1px solid rgba(255,255,255,0.08);
-    transition: 0.3s;
-    letter-spacing: 0.02em;
-  }
-  .sk-tag:hover {
-    background: rgba(56, 189, 248, 0.1);
-    border-color: #38bdf8;
-    color: #38bdf8;
-  }
-</style>
+}
 
-<!-- CASE -->
-<!-- <section id="case">
-<h2>Case Studies</h2>
-<div class="card" style="margin-top: 30px; border: 1px solid #38bdf8;">
-    <h3 style="color: #38bdf8;">Deep Dive: Agentic AI Workflow</h3>
-    <p>Designed a dynamic Agentic workflow using OpenAI Function Calling and Memory for automated claim handling[cite: 120].</p>
-    <div style="background: #020617; padding: 15px; border-radius: 8px; font-family: monospace; font-size: 0.85rem;">
-        // Architecture: Reasoning -> Action -> Observation -> Memory <br>
-        - Reduced manual review time by <b>50%</b> [cite: 119]<br>
-        - Tools: LangChain, Function Calling, Memory, Adaptive Conversation [cite: 120]
-    </div>
-</div>
-
-<div class="card" style="margin-top: 30px; border-left: 5px solid #38bdf8; background: #161e2d;">
-    <h3 style="color: #38bdf8;">Technical Deep Dive: Agentic AI Workflow</h3>
-    <p>Developed a dynamic Agentic system at Genpact using OpenAI Function Calling and Memory to automate complex insurance claims[cite: 120].</p>
-    
-    <div class="grid" style="grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 15px;">
-        <div>
-            <h4 style="margin: 0; font-size: 0.9rem; color: #94a3b8;">THE CHALLENGE</h4>
-            <p style="font-size: 0.85rem;">Manual document review was slow and prone to human error[cite: 119, 151].</p>
-        </div>
-        <div>
-            <h4 style="margin: 0; font-size: 0.9rem; color: #94a3b8;">THE SOLUTION</h4>
-            <p style="font-size: 0.85rem;">Implemented a RAG-based assistant with LangChain agents for auto-summarization[cite: 118, 119].</p>
-        </div>
-    </div>
-
-    <div style="margin-top: 15px; padding: 10px; background: #020617; border-radius: 8px;">
-        <span style="color: #38bdf8; font-weight: bold;">Result:</span> 
-        60% faster document search and 50% reduction in manual review time[cite: 118, 119].
-    </div>
-</div>
-
-<div class="grid">
-<div class="card"><b>Forecasting</b><br>+25% accuracy</div>
-<div class="card"><b>RAG Chatbot</b><br>60% faster queries</div>
-<div class="card"><b>Agentic AI</b><br>+40% efficiency</div>
-</div>
-</section> -->
-
-<!-- 
-<section id="case" style="background: #0b0f19; padding: 100px 5%;">
-  <div style="max-width: 1200px; margin: 0 auto;">
-    <div style="text-transform: uppercase; letter-spacing: 0.15em; font-size: 0.75rem; color: #38bdf8; font-weight: 700; margin-bottom: 0.5rem;">Portfolio</div>
-    <h2 style="font-family: 'Playfair Display', serif; font-size: 2.8rem; color: #fff; margin-bottom: 1rem;">Featured Case Studies</h2>
-    <div style="width: 60px; height: 4px; background: linear-gradient(90deg, #38bdf8, #818cf8); margin-bottom: 4rem; border-radius: 2px;"></div>
-
-    <div style="display: grid; grid-template-columns: 1fr; gap: 3rem;">
-      
-      <div class="case-card">
-        <div class="case-content">
-          <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 1.5rem;">
-            <span class="case-badge">SENIOR LEAD PROJECT · COFORGE</span>
-            <div style="display: flex; gap: 1rem;">
-               <span style="color: #38bdf8; font-weight: 800; font-size: 1.2rem;">01</span>
-            </div>
-          </div>
-          <h3 class="case-title">AI-Enabled SDLC Platform & MCP Tools</h3>
-          <p class="case-summary">Led the end-to-end development of a platform standardizing AI interactions across the software development lifecycle using Model Context Protocol (MCP)[cite: 98, 99].</p>
-          
-          <div class="case-grid">
-            <div class="case-info">
-              <h4>The Challenge</h4>
-              <p>Fragmented AI workflows and high-latency communication between frontend apps and AI services[cite: 98, 100].</p>
-            </div>
-            <div class="case-info">
-              <h4>The Solution</h4>
-              <p>Built Uvicorn-based backend services and modular AI inference engines for real-time tool execution[cite: 100, 103].</p>
-            </div>
-            <div class="case-info" style="border-left: 2px solid #38bdf8; padding-left: 1.5rem;">
-              <h4>The Impact</h4>
-              <p style="color: #fff; font-weight: 700;">Accelerated development cycles and boosted engineering productivity across cross-functional teams[cite: 105].</p>
-            </div>
-          </div>
-          <div class="case-stack">
-            <span class="sk-tag">MCP</span> <span class="sk-tag">Uvicorn</span> <span class="sk-tag">FastAPI</span> <span class="sk-tag">GenAI Integration</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="case-card">
-        <div class="case-content">
-          <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 1.5rem;">
-            <span class="case-badge">AI INNOVATION · GENPACT</span>
-            <span style="color: #38bdf8; font-weight: 800; font-size: 1.2rem;">02</span>
-          </div>
-          <h3 class="case-title">Dynamic Agentic Claims Handler</h3>
-          <p class="case-summary">Designed an adaptive Agentic workflow using OpenAI Function Calling and Memory for automated insurance customer support[cite: 120].</p>
-          
-          <div class="case-grid">
-            <div class="case-info">
-              <h4>The Tech</h4>
-              <p>Implemented LangChain agents for document summarization, classification, and extraction tasks[cite: 119].</p>
-            </div>
-            <div class="case-info" style="border-left: 2px solid #38bdf8; padding-left: 1.5rem;">
-              <h4>The Result</h4>
-              <p style="color: #fff; font-weight: 700;">Reduced manual review time by 50% through intelligent automation pipelines[cite: 119, 151].</p>
-            </div>
-          </div>
-          <div class="case-stack">
-            <span class="sk-tag">LangChain</span> <span class="sk-tag">OpenAI API</span> <span class="sk-tag">Function Calling</span> <span class="sk-tag">Docker</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="case-card">
-        <div class="case-content">
-          <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 1.5rem;">
-            <span class="case-badge">PRODUCTION RAG · ML OPS</span>
-            <span style="color: #38bdf8; font-weight: 800; font-size: 1.2rem;">03</span>
-          </div>
-          <h3 class="case-title">Enterprise RAG Retrieval System</h3>
-          <p class="case-summary">Developed a document Q&A system to enhance information retrieval accuracy and reduce hallucinations[cite: 107, 118].</p>
-          
-          <div class="case-grid">
-            <div class="case-info">
-              <h4>Implementation</h4>
-              <p>Utilized FAISS vector databases and GPT-3.5 to create a high-efficiency retrieval system for underwriters[cite: 118].</p>
-            </div>
-            <div class="case-info" style="border-left: 2px solid #38bdf8; padding-left: 1.5rem;">
-              <h4>Success Metric</h4>
-              <p style="color: #fff; font-weight: 700;">Improved document search efficiency by 60% for end-users[cite: 118].</p>
-            </div>
-          </div>
-          <div class="case-stack">
-            <span class="sk-tag">FAISS</span> <span class="sk-tag">GPT-3.5</span> <span class="sk-tag">LlamaIndex</span> <span class="sk-tag">Vector Search</span>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<style>
-  .case-card {
-    background: #111827;
-    border-radius: 20px;
-    border: 1px solid #1f2937;
-    overflow: hidden;
-    transition: 0.4s ease;
-  }
-  .case-card:hover {
-    border-color: #38bdf8;
-    transform: translateY(-8px);
-    box-shadow: 0 20px 40px rgba(0,0,0,0.4);
-  }
-  .case-content {
-    padding: 3rem;
-  }
-  .case-badge {
-    font-size: 0.7rem;
-    font-weight: 700;
-    color: #38bdf8;
-    background: rgba(56, 189, 248, 0.1);
-    padding: 0.5rem 1rem;
-    border-radius: 4px;
-    letter-spacing: 0.1em;
-  }
-  .case-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.8rem;
-    color: #fff;
-    margin-bottom: 1rem;
-  }
-  .case-summary {
-    color: #94a3b8;
-    font-size: 1.05rem;
-    max-width: 800px;
-    margin-bottom: 2.5rem;
-    line-height: 1.7;
-  }
-  .case-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 2rem;
-    margin-bottom: 2.5rem;
-  }
-  .case-info h4 {
-    font-size: 0.8rem;
-    text-transform: uppercase;
-    color: #38bdf8;
-    margin-bottom: 0.75rem;
-    letter-spacing: 0.05em;
-  }
-  .case-info p {
-    font-size: 0.95rem;
-    color: #d1d5db;
-    line-height: 1.6;
-  }
-  .case-stack {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.8rem;
-    padding-top: 2rem;
-    border-top: 1px solid rgba(255,255,255,0.05);
-  }
-</style> -->
-
-
-
-<section id="case" style="background: #030712; padding: 120px 5%; position: relative; overflow: hidden;">
-  <div style="position: absolute; top: 20%; right: -5%; width: 500px; height: 500px; background: radial-gradient(circle, rgba(56,189,248,0.03) 0%, transparent 70%);"></div>
-
-  <div style="max-width: 1200px; margin: 0 auto; position: relative; z-index: 1;">
-    <div style="text-align: center; margin-bottom: 6rem;">
-      <div style="text-transform: uppercase; letter-spacing: 0.3em; font-size: 0.7rem; color: #38bdf8; font-weight: 800; margin-bottom: 1rem;">Engineering Impact</div>
-      <h2 style="font-family: 'Playfair Display', serif; font-size: clamp(2.5rem, 5vw, 3.5rem); color: #fff; margin-bottom: 2rem;">Strategic Case Studies</h2>
-      <div style="width: 80px; height: 4px; background: linear-gradient(90deg, #38bdf8, #818cf8); margin: 0 auto; border-radius: 10px;"></div>
-    </div>
-
-    <div style="display: flex; flex-direction: column; gap: 8rem;">
-      
-      <div class="extraordinary-card">
-        <div class="card-number">01</div>
-        <div class="card-grid">
-          <div class="card-narrative">
-            <span class="client-tag">Coforge · Senior Technical Lead</span>
-            <h3 class="premium-title">AI-Enabled SDLC Platform & MCP Tooling</h3>
-            <p class="premium-desc">Orchestrated the engineering of a cross-functional platform that standardizes AI-driven interactions across every stage of the software lifecycle[cite: 98, 99].</p>
-            
-            <div class="metric-ribbon">
-              <div class="metric-item"><strong>Objective</strong><span>Low-Latency API</span></div>
-              <div class="metric-item"><strong>Innovation</strong><span>MCP Protocol</span></div>
-              <div class="metric-item"><strong>Status</strong><span>Production Ready</span></div>
-            </div>
-
-            <div class="case-tags">
-              <span class="p-tag">Uvicorn</span> <span class="p-tag">Modular Architecture</span> <span class="p-tag">API Orchestration</span>
-            </div>
-          </div>
-
-          <div class="card-architecture">
-            <div class="arch-header">Architectural Insight</div>
-            <div class="arch-body">
-              <div class="arch-step"><span>01</span><p>Standardized AI interaction protocol using <strong>MCP</strong>[cite: 99].</p></div>
-              <div class="arch-step"><span>02</span><p>Deployed <strong>Uvicorn-based</strong> backend services for low-latency inference[cite: 100, 103].</p></div>
-              <div class="arch-step"><span>03</span><p>Integrated <strong>GenAI validation workflows</strong> into production pipelines[cite: 102, 105].</p></div>
-            </div>
-            <div class="arch-footer">Impact: Boosted Engineering Productivity[cite: 105].</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="extraordinary-card" style="border-right: 1px solid rgba(56, 189, 248, 0.2); border-left: none; text-align: right;">
-        <div class="card-number" style="left: auto; right: -40px;">02</div>
-        <div class="card-grid">
-           <div class="card-architecture" style="order: 1; text-align: left;">
-            <div class="arch-header" style="background: rgba(129, 140, 248, 0.1); color: #818cf8;">Agent Workflow</div>
-            <div class="arch-body">
-              <div class="arch-step"><span>A</span><p>Built <strong>LangChain Agents</strong> for autonomous document classification[cite: 119].</p></div>
-              <div class="arch-step"><span>B</span><p>Applied <strong>Function Calling & Memory</strong> for adaptive conversations[cite: 120].</p></div>
-              <div class="arch-step"><span>C</span><p>Automated <strong>Insurance Claim Handling</strong> via dynamic tool use[cite: 120].</p></div>
-            </div>
-            <div class="arch-footer" style="color: #818cf8;">Impact: 50% Reduction in Manual Review.</div>
-          </div>
-
-          <div class="card-narrative" style="order: 2;">
-            <span class="client-tag">Genpact · AI Innovation</span>
-            <h3 class="premium-title">Dynamic Agentic Claims Handler</h3>
-            <p class="premium-desc">Developed an advanced agentic ecosystem capable of complex reasoning and multi-step task execution for insurance operations[cite: 119, 120].</p>
-            
-            <div class="metric-ribbon" style="justify-content: flex-end;">
-              <div class="metric-item"><strong>Model</strong><span>GPT-3.5 / OpenAI</span></div>
-              <div class="metric-item"><strong>Efficiency</strong><span>+60% Search</span></div>
-            </div>
-
-            <div class="case-tags" style="justify-content: flex-end;">
-              <span class="p-tag">LangChain</span> <span class="p-tag">Tool Use</span> <span class="p-tag">Memory Systems</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<style>
-  .extraordinary-card {
-    position: relative;
-    padding: 4rem;
-    background: rgba(255, 255, 255, 0.02);
-    border-radius: 24px;
-    border-left: 1px solid rgba(56, 189, 248, 0.2);
-    backdrop-filter: blur(10px);
-    transition: 0.5s ease;
-  }
-  .extraordinary-card:hover {
-    background: rgba(255, 255, 255, 0.04);
-    transform: scale(1.01);
-  }
-  .card-number {
-    position: absolute;
-    top: -30px; left: -40px;
-    font-size: 8rem;
-    font-weight: 900;
-    color: rgba(255,255,255,0.03);
-    font-family: 'Inter', sans-serif;
-    line-height: 1;
-  }
-  .card-grid {
-    display: grid;
-    grid-template-columns: 1.2fr 0.8fr;
-    gap: 4rem;
-    align-items: center;
-  }
-  .client-tag {
-    font-size: 0.75rem;
-    font-weight: 700;
-    color: #38bdf8;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-  }
-  .premium-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 2.2rem;
-    color: #fff;
-    margin: 1rem 0;
-  }
-  .premium-desc {
-    color: #94a3b8;
-    line-height: 1.8;
-    font-size: 1.1rem;
-    margin-bottom: 2rem;
-  }
-  .metric-ribbon {
-    display: flex;
-    gap: 3rem;
-    margin-bottom: 2.5rem;
-  }
-  .metric-item strong {
-    display: block;
-    font-size: 0.65rem;
-    text-transform: uppercase;
-    color: #38bdf8;
-    letter-spacing: 0.05em;
-  }
-  .metric-item span {
-    font-size: 1.2rem;
-    font-weight: 700;
-    color: #fff;
-  }
-  .case-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.8rem;
-  }
-  .p-tag {
-    font-size: 0.7rem;
-    padding: 0.4rem 1rem;
-    background: rgba(56, 189, 248, 0.05);
-    border: 1px solid rgba(56, 189, 248, 0.15);
-    color: #38bdf8;
-    border-radius: 4px;
-    font-weight: 700;
-  }
-  /* Architecture Box Styling */
-  .card-architecture {
-    background: #0f172a;
-    border-radius: 16px;
-    border: 1px solid #1f2937;
-    overflow: hidden;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-  }
-  .arch-header {
-    background: rgba(56, 189, 248, 0.1);
-    padding: 1rem 1.5rem;
-    font-size: 0.8rem;
-    font-weight: 800;
-    color: #38bdf8;
-    text-transform: uppercase;
-  }
-  .arch-body {
-    padding: 2rem 1.5rem;
-  }
-  .arch-step {
-    display: flex;
-    gap: 1rem;
+.node-header {
     margin-bottom: 1.5rem;
-  }
-  .arch-step span {
+}
+
+.node-header span {
+    display: block;
+    font-size: 0.75rem;
     font-weight: 800;
     color: #38bdf8;
-    font-size: 0.9rem;
-  }
-  .arch-step p {
-    font-size: 0.9rem;
-    color: #d1d5db;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+}
+
+.node-header h3 {
+    font-size: 1.5rem;
+    color: #fff;
     margin: 0;
-    line-height: 1.5;
-  }
-  .arch-footer {
-    padding: 1rem 1.5rem;
-    background: rgba(255,255,255,0.02);
-    font-size: 0.8rem;
+}
+
+.node-date {
+    display: inline-block;
+    margin-top: 10px;
+    font-size: 0.7rem;
     font-weight: 700;
-    color: #fff;
-    border-top: 1px solid #1f2937;
-  }
-
-  @media (max-width: 992px) {
-    .card-grid { grid-template-columns: 1fr; gap: 2rem; }
-    .extraordinary-card { padding: 2rem; text-align: left !important; border-right: none !important; border-left: 1px solid rgba(56, 189, 248, 0.2) !important; }
-    .metric-ribbon, .case-tags { justify-content: flex-start !important; }
-    .card-narrative { order: 1 !important; }
-    .card-architecture { order: 2 !important; }
-  }
-</style>
-
-<!-- TIMELINE -->
-<!-- <div class="card">
-  <b>Coforge</b> | Senior Technical Lead (Sept 2025 – Present)
-</div>
-<div class="card">
-  <b>LeewayHertz</b> | Data Scientist (Apr 2025 – June 2025)
-</div>
-<div class="card">
-  <b>Genpact</b> | Assistant Manager (Jan 2022 – Apr 2025)
-</div>
-<div class="card">
-  <b>Deloitte</b> | Data Analyst (Aug 2018 – Feb 2021)
-</div> -->
-
-<section id="timeline">
-  <h2>Professional Trajectory</h2>
-  <div class="grid">
-    <div class="card">
-      <span class="tag" style="background:#38bdf8; color:black; padding:2px 6px; border-radius:4px; font-size:10px;">PRESENT</span>
-      <h3>Coforge</h3>
-      <p><b>Senior Technical Lead</b> (June 2025 – Present) [cite: 97]</p>
-      <ul>
-        <li>Led AI-enabled SDLC platform development[cite: 98].</li>
-        <li>Implemented MCP tools to standardize AI interactions[cite: 99].</li>
-        <li>Built Uvicorn-based scalable backend services[cite: 100].</li>
-      </ul>
-    </div>
-    <div class="card">
-      <h3>Genpact India</h3>
-      <p><b>Assistant Manager (Data Scientist)</b> (Jan 2022 – Apr 2025) [cite: 112, 114]</p>
-      <ul>
-        <li>Reduced decision-making time by 35% using XGBoost[cite: 115].</li>
-        <li>Automated ML pipelines with Airflow and Docker[cite: 116].</li>i>
-      </ul>
-    </div>
-    <div class="card">
-      <h3>Deloitte</h3>
-      <p><b>Data Analyst</b> (Aug 2018 – Feb 2021) [cite: 131, 132]</p>
-      <ul>
-        <li>Automated ETL processes, reducing cycle time by 30%[cite: 135].</li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<!-- DEMOS -->
-<section id="demos">
-<h2>Live Demos</h2>
-<div class="grid">
-<div class="card">RAG Demo (Add link)</div>
-<div class="card">Forecast Demo (Add link)</div>
-</div>
-</section>
-
-<!-- Education -->
-<!-- <section id="education">
-  <h2>Education & Certifications</h2>
-  <div class="grid">
-    <div class="card">
-      <b>MBA in Finance</b><br>IGNOU (2023 - 2024)
-    </div>
-    <div class="card">
-      <b>BCom</b><br>Delhi University (2014 - 2017)
-    </div>
-    <div class="card">
-      <b>Certifications</b><br>
-      • Applied Machine Learning: Algorithms<br>
-      • Foundations of NumPy
-    </div>
-  </div>
-</section> -->
-
-
-
-<section id="education" style="background: #0b0f19; padding: 100px 5%;">
-  <div style="max-width: 1100px; margin: 0 auto;">
-    <div style="text-transform: uppercase; letter-spacing: 0.15em; font-size: 0.75rem; color: #38bdf8; font-weight: 700; margin-bottom: 0.5rem;">Academia & Credentials</div>
-    <h2 style="font-family: 'Playfair Display', serif; font-size: 2.5rem; color: #fff; margin-bottom: 1rem;">Education & Certifications</h2>
-    <div style="width: 50px; height: 3px; background: #38bdf8; margin-bottom: 4rem;"></div>
-
-    <div style="display: grid; grid-template-columns: 1fr 1.5fr; gap: 4rem;">
-      
-      <div style="display: flex; flex-direction: column; gap: 2rem;">
-        <h3 style="color: #fff; font-size: 1.2rem; margin-bottom: 1rem; opacity: 0.8;">Formal Education</h3>
-        
-        <div class="edu-card-premium">
-          <div style="color: #38bdf8; font-weight: 700; font-size: 0.8rem; margin-bottom: 0.5rem;">2022 — 2024</div>
-          <h4 style="color: #fff; margin: 0; font-size: 1.1rem;">Master of Business Administration (MBA)</h4>
-          <p style="color: #94a3b8; font-size: 0.9rem; margin: 5px 0;">Finance & Financial Management Services</p>
-          <div style="font-size: 0.85rem; color: #fff; opacity: 0.6;">IGNOU · India</div>
-        </div>
-
-        <div class="edu-card-premium">
-          <div style="color: #38bdf8; font-weight: 700; font-size: 0.8rem; margin-bottom: 0.5rem;">2014 — 2017</div>
-          <h4 style="color: #fff; margin: 0; font-size: 1.1rem;">Bachelor of Commerce (B.Com)</h4>
-          <div style="font-size: 0.85rem; color: #fff; opacity: 0.6; margin-top: 5px;">University of Delhi · India</div>
-        </div>
-      </div>
-
-      <div>
-        <h3 style="color: #fff; font-size: 1.2rem; margin-bottom: 2rem; opacity: 0.8;">Professional Certifications</h3>
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
-          
-          <div class="cert-item-premium">
-            <div class="cert-icon">🏷️</div>
-            <div>
-              <div class="cert-title">Applied Machine Learning: Algorithms</div>
-              <div class="cert-provider">LinkedIn Learning</div>
-            </div>
-          </div>
-
-          <div class="cert-item-premium">
-            <div class="cert-icon">🏷️</div>
-            <div>
-              <div class="cert-title">Foundations of NumPy</div>
-              <div class="cert-provider">LinkedIn Learning</div>
-            </div>
-          </div>
-
-          <div class="cert-item-premium">
-            <div class="cert-icon">📊</div>
-            <div>
-              <div class="cert-title">Data Science in Python</div>
-              <div class="cert-provider">Coursera</div>
-            </div>
-          </div>
-
-          <div class="cert-item-premium">
-            <div class="cert-icon">☁️</div>
-            <div>
-              <div class="cert-title">Cloud for CEOs</div>
-              <div class="cert-provider">LinkedIn Learning</div>
-            </div>
-          </div>
-
-          <div class="cert-item-premium">
-            <div class="cert-icon">⚙️</div>
-            <div>
-              <div class="cert-title">Microsoft Power Automate</div>
-              <div class="cert-provider">LinkedIn Learning</div>
-            </div>
-          </div>
-
-          <div class="cert-item-premium">
-            <div class="cert-icon">🗄️</div>
-            <div>
-              <div class="cert-title">Introduction to SQL</div>
-              <div class="cert-provider">Coursera</div>
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<style>
-  .edu-card-premium {
-    background: rgba(255, 255, 255, 0.02);
-    padding: 1.5rem;
-    border-radius: 12px;
-    border-left: 3px solid #38bdf8;
-    transition: 0.3s;
-  }
-  .edu-card-premium:hover {
-    background: rgba(255, 255, 255, 0.04);
-    transform: translateX(10px);
-  }
-  .cert-item-premium {
-    display: flex;
-    align-items: flex-start;
-    gap: 1rem;
-    padding: 1rem;
-    background: #111827;
-    border-radius: 8px;
-    border: 1px solid #1f2937;
-    transition: 0.3s;
-  }
-  .cert-item-premium:hover {
-    border-color: #38bdf8;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-  }
-  .cert-icon {
-    font-size: 1.2rem;
-    filter: grayscale(1);
-    transition: 0.3s;
-  }
-  .cert-item-premium:hover .cert-icon {
-    filter: grayscale(0);
-  }
-  .cert-title {
-    color: #fff;
-    font-size: 0.85rem;
-    font-weight: 600;
-    line-height: 1.3;
-  }
-  .cert-provider {
     color: #94a3b8;
-    font-size: 0.75rem;
-    margin-top: 4px;
-  }
-</style>
+    background: rgba(255,255,255,0.05);
+    padding: 3px 10px;
+    border-radius: 4px;
+}
 
-<!-- CONTACT -->
-<section id="contact" style="text-align: center;">
-  <h2>Contact</h2>
-  <div class="card" style="display: inline-block; min-width: 300px;">
-    <p>📧 Email: <a href="mailto:your-email@example.com" style="color: #38bdf8; text-decoration: none;">your-email@example.com</a></p>
-    <p>📍 Location: Delhi, India</p>
-  </div>
-</section>
+.impact-points {
+    list-style: none;
+    padding: 0;
+    margin: 1.5rem 0;
+}
 
-<section id="tech-cloud" style="background: #030712; padding: 120px 5%; position: relative; overflow: hidden;">
-  <div style="position: absolute; top: 50%; left: 50%; width: 600px; height: 600px; background: radial-gradient(circle, rgba(56,189,248,0.05) 0%, transparent 70%); transform: translate(-50%, -50%); pointer-events: none;"></div>
+.impact-points li {
+    font-size: 0.9rem;
+    color: #cbd5e1;
+    margin-bottom: 12px;
+    line-height: 1.6;
+    display: flex;
+    gap: 10px;
+}
 
-  <div style="max-width: 1000px; margin: 0 auto; text-align: center; position: relative; z-index: 2;">
-    <div style="text-transform: uppercase; letter-spacing: 0.4em; font-size: 0.7rem; color: #38bdf8; font-weight: 800; margin-bottom: 1.5rem;">Ecosystem</div>
-    <h2 style="font-family: 'Playfair Display', serif; font-size: 2.5rem; color: #fff; margin-bottom: 4rem;">Technical Foundations</h2>
+.impact-points li::before {
+    content: "⚡";
+    font-size: 0.8rem;
+    color: #38bdf8;
+}
 
-    <div class="cloud-container">
-      <div class="floating-tag ai-primary">Generative AI</div>
-      <div class="floating-tag">RAG Pipelines</div>
-      <div class="floating-tag ai-secondary">Agentic AI</div>
-      <div class="floating-tag">LangChain</div>
-      <div class="floating-tag ai-primary">OpenAI GPT</div>
-      <div class="floating-tag">LlamaIndex</div>
-      <div class="floating-tag">FAISS</div>
-      <div class="floating-tag ai-secondary">Fine-tuning</div>
-      <div class="floating-tag">Prompt Engineering</div>
-
-      <div class="floating-tag infra-primary">MLOps</div>
-      <div class="floating-tag">Docker</div>
-      <div class="floating-tag">Kubernetes</div>
-      <div class="floating-tag infra-secondary">AWS / GCP</div>
-      <div class="floating-tag">FastAPI</div>
-      <div class="floating-tag infra-primary">Uvicorn</div>
-      <div class="floating-tag">MLflow</div>
-      <div class="floating-tag">MCP Tools</div>
-      <div class="floating-tag infra-secondary">ETL Pipelines</div>
-
-      <div class="floating-tag code-primary">Python</div>
-      <div class="floating-tag">PyTorch</div>
-      <div class="floating-tag">TensorFlow</div>
-      <div class="floating-tag code-secondary">NLP</div>
-      <div class="floating-tag">XGBoost</div>
-      <div class="floating-tag code-primary">Prophet</div>
-      <div class="floating-tag">SQL / NoSQL</div>
-      <div class="floating-tag code-secondary">Pandas & NumPy</div>
-    </div>
-  </div>
-</section>
-
-<style>
-  .cloud-container {
+.tech-stack-footer {
+    border-top: 1px solid rgba(255,255,255,0.05);
+    padding-top: 1.2rem;
+    margin-top: auto;
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
-    gap: 1.2rem;
-    perspective: 1000px;
-  }
+    gap: 8px;
+}
 
-  .floating-tag {
-    padding: 0.8rem 1.8rem;
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    color: #94a3b8;
-    border-radius: 50px;
-    font-size: 0.9rem;
-    font-weight: 600;
-    cursor: default;
-    transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
-    backdrop-filter: blur(5px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  }
-
-  /* Color variations for visual depth */
-  .ai-primary { border-color: rgba(56, 189, 248, 0.4); color: #fff; }
-  .ai-secondary { border-color: rgba(129, 140, 248, 0.4); color: #fff; }
-  .infra-primary { border-color: rgba(52, 211, 153, 0.4); }
-  .code-primary { border-color: rgba(251, 191, 36, 0.4); }
-
-  .floating-tag:hover {
-    background: rgba(56, 189, 248, 0.1);
-    border-color: #38bdf8;
+.stack-tag {
+    font-size: 0.65rem;
     color: #38bdf8;
-    transform: translateZ(30px) translateY(-10px) rotateX(10deg);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), 0 0 20px rgba(56, 189, 248, 0.2);
-  }
-
-  /* Animation for the "Cloud" feel */
-  @keyframes subtleFloat {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-10px); }
-  }
-
-  .floating-tag:nth-child(odd) { animation: subtleFloat 4s ease-in-out infinite; }
-  .floating-tag:nth-child(even) { animation: subtleFloat 4s ease-in-out infinite 2s; }
-
-  @media (max-width: 768px) {
-    .floating-tag { padding: 0.6rem 1.2rem; font-size: 0.8rem; }
-  }
-</style>
-
-
-<footer>© 2026 Arshad</footer>
-
-<!-- CHAT BUTTON -->
-<button id="chatBtn">💬</button>
-
-<!-- CHAT -->
-<div id="chatBox" style="display: none; flex-direction: column;">
-  <div style="background: #38bdf8; color: black; padding: 10px; display: flex; justify-content: space-between; align-items: center; border-radius: 12px 12px 0 0;">
-    <span style="font-weight: bold;">AI Assistant</span>
-    <button id="closeChat" style="background: none; border: none; font-size: 20px; cursor: pointer;">&times;</button>
-  </div>
-  
-  <div id="messages"></div>
-
-
-  <div id="suggestions" style="padding: 10px; display: flex; gap: 5px; flex-wrap: wrap; background: #111827;">
-    <button onclick="sendQuickMsg('Tell me about your RAG project')" style="font-size: 10px; background: #1f2937; color: #38bdf8; border: 1px solid #334155; border-radius: 4px; cursor: pointer;">RAG Project</button>
-    <button onclick="sendQuickMsg('What did you do at Coforge?')" style="font-size: 10px; background: #1f2937; color: #38bdf8; border: 1px solid #334155; border-radius: 4px; cursor: pointer;">Coforge Role</button>
-    <button onclick="sendQuickMsg('Agentic AI details')" style="font-size: 10px; background: #1f2937; color: #38bdf8; border: 1px solid #334155; border-radius: 4px; cursor: pointer;">Agentic AI</button>
-  </div>
-  <div id="inputArea">
-    <input id="input" placeholder="Ask about my work..." />
-    <button id="mic">🎤</button>
-  </div>
-</div>
-
-<script>
-
-
-
-// Trigger skill bar animation on scroll
-const barObserver = new IntersectionObserver(entries => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.querySelectorAll('.bar-fill').forEach(bar => {
-        setTimeout(() => {
-          bar.style.width = bar.dataset.width + '%';
-        }, 300);
-      });
-      barObserver.unobserve(entry.target);
-    }
-  });
-}, { threshold: 0.3 });
-
-const barGrid = document.getElementById('barSkills');
-if (barGrid) barObserver.observe(barGrid);
-
-function sendQuickMsg(text) {
-  document.getElementById("input").value = text;
-  // Trigger the enter key logic manually
-  const ke = new KeyboardEvent('keypress', {
-    bubbles: true, cancelable: true, keyCode: 13, key: "Enter"
-  });
-  document.getElementById("input").dispatchEvent(ke);
-}
-
-
-// Toggle Chat
-const btn=document.getElementById("chatBtn");
-const box=document.getElementById("chatBox");
-
-const closeBtn = document.getElementById("closeChat"); // Get the X button
-
-// Open chat and hide the floating icon
-btn.onclick = () => {
-  box.style.display = "flex";
-  btn.style.display = "none";
-};
-
-// Close chat and show the floating icon again
-closeBtn.onclick = () => {
-  box.style.display = "none";
-  btn.style.display = "block";
-};
-
-// Memory
-let chatHistory=[];
-
-
-// TEXT → VECTOR
-function textToVector(text) {
-  const words = text.toLowerCase().split(" ");
-  let vec = new Array(50).fill(0);
-
-  words.forEach(word => {
-    let index = word.charCodeAt(0) % 50;
-    vec[index] += 1;
-  });
-
-  return vec;
-}
-
-// COSINE SIMILARITY
-function cosineSim(a, b) {
-  let dot = 0, magA = 0, magB = 0;
-
-  for (let i = 0; i < a.length; i++) {
-    dot += a[i] * b[i];
-    magA += a[i] * a[i];
-    magB += b[i] * b[i];
-  }
-
-  return dot / (Math.sqrt(magA) * Math.sqrt(magB));
+    background: rgba(56, 189, 248, 0.1);
+    padding: 2px 8px;
+    border-radius: 4px;
+    border: 1px solid rgba(56, 189, 248, 0.2);
 }
 
 
 
-// Knowledge Base
-const knowledge=[
-"Arshad is a Senior AI/ML Engineer with over 9 years of experience.",
-"He built a RAG chatbot that reduced query resolution time by 60 percent.",
-"He developed a demand forecasting system improving accuracy by 25 percent.",
-"He built an agentic AI system that improved efficiency by 40 percent.",
-"He specializes in Python, Machine Learning, Generative AI, and AWS."
-];
-
-// AUTO LEARN
-let autoKnowledge = [];
-
-window.onload = () => {
-  autoKnowledge = extractSiteContent();
-
-  const allKnowledge = [...knowledge, ...autoKnowledge];
-
-  window.knowledgeVectors = allKnowledge.map(k => ({
-    text: k,
-    vector: textToVector(k)
-  }));
-};
-
-// AUTO LEARN FROM WEBSITE
-function extractSiteContent() {
-  let text = document.body.innerText;
-
-  // Fix missing spaces between words
-  text = text.replace(/([a-z])([A-Z])/g, "$1 $2");
-
-  // Add space after numbers
-  text = text.replace(/([0-9])([A-Za-z])/g, "$1 $2");
-
-  // Clean symbols
-  text = text.replace(/[^a-zA-Z0-9.% ]/g, " ");
-
-  // Normalize spaces
-  text = text.replace(/\s+/g, " ");
-
-  // Split into sentences
-  let sentences = text.split(". ");
-
-  return sentences.filter(s => s.length > 40);
+.trajectory-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-top: 3rem;
 }
 
-// Score
-function score(q,t){
-let s=0;
-q.split(" ").forEach(w=>{
-if(t.toLowerCase().includes(w.toLowerCase())) s++;
-});
-return s;
+.trajectory-block {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-left: 5px solid #38bdf8;
+    padding: 2.5rem;
+    border-radius: 0 16px 16px 0;
+    transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+    position: relative;
+    overflow: hidden;
 }
 
-// Better RAG
-
-
-// 1. Define structured data for specific "Intents"
-const profileData = {
-  experience: "Arshad is a Senior Technical Lead at Coforge (since June 2025), leading AI-enabled SDLC platforms[cite: 97, 98]. He has 9+ years of experience including Genpact and Deloitte[cite: 114, 132].",
-  skills: "He specializes in Agentic AI, RAG, LangChain, and MLOps (Docker, Kubernetes)[cite: 86, 88].",
-  achievements: "Key impacts: 60% faster document search [cite: 118], 50% less manual review time [cite: 119], and 35% faster decision-making[cite: 115].",
-  education: "He holds an MBA from IGNOU (2022-2024) and a BCom from Delhi University[cite: 138, 139, 140, 141].",
-  contact: "Email: mdarshadali.2609@gmail.com | Phone: 9716137265[cite: 76]."
-};
-// 2. The Smart Logic: Intent Check -> Semantic Search -> Basic Score
-function getSmartAnswer(q) {
-  const query = q.toLowerCase();
-
-  // INTENT HANDLING: Direct matches for common questions
-  if (query.includes("experience") || query.includes("years") || query.includes("how long")) {
-    return profileData.experience;
-  }
-  if (query.includes("skill") || query.includes("tech") || query.includes("stack") || query.includes("language")) {
-    return profileData.skills;
-  }
-  if (query.includes("project") || query.includes("work") || query.includes("case") || query.includes("built")) {
-    return profileData.projects;
-  }
-  if (query.includes("contact") || query.includes("email") || query.includes("reach")) {
-    return profileData.contact;
-  }
-
-  // SEMANTIC FALLBACK: If no intent matches, use your vector math
-  let semanticResult = getSemanticAnswer(query);
-  if (semanticResult && semanticResult.trim().length > 10) {
-    return semanticResult;
-  }
-
-  return "I specialize in building scalable AI/ML systems and RAG pipelines. How can I help you today?";
+.trajectory-block:hover {
+    background: rgba(56, 189, 248, 0.04);
+    transform: scale(1.02);
+    border-left-width: 10px;
+    box-shadow: -10px 0 30px rgba(56, 189, 248, 0.1);
 }
 
-// UI
-function addMessage(text,type){
-  let wrapper = document.createElement("div");
-  wrapper.style.display = "flex";
-  wrapper.style.alignItems = "flex-start";
-  wrapper.style.gap = "8px";
-
-  let img = document.createElement("img");
-  img.src = type === "user" ? USER_IMG : BOT_IMG;
-  img.style.width = "30px";
-  img.style.height = "30px";
-  img.style.borderRadius = "50%";
-
-  let div = document.createElement("div");
-  div.className = "msg " + type;
-  div.innerText = text;
-  div.title = text; // Tooltip on hover
-
-  if(type === "user"){
-    wrapper.style.flexDirection = "row-reverse";
-  }
-
-  wrapper.appendChild(img);
-  wrapper.appendChild(div);
-
-  document.getElementById("messages").appendChild(wrapper);
+.trajectory-block::before {
+    content: "";
+    position: absolute;
+    top: 0; right: 0; width: 150px; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(56, 189, 248, 0.03));
+    pointer-events: none;
 }
 
-// Typing Effect
-function typeText(text){
-  let wrapper = document.createElement("div");
-  wrapper.style.display = "flex";
-  wrapper.style.alignItems = "flex-start";
-  wrapper.style.gap = "8px";
-
-  let img = document.createElement("img");
-  img.src = BOT_IMG;
-  img.style.width = "30px";
-  img.style.height = "30px";
-  img.style.borderRadius = "50%";
-
-  let div = document.createElement("div");
-  div.className = "msg bot";
-  div.title = text; // Tooltip on hover
-
-  wrapper.appendChild(img);
-  wrapper.appendChild(div);
-
-  document.getElementById("messages").appendChild(wrapper);
-
-  let i = 0;
-  let interval = setInterval(()=>{
-    div.innerText += text[i];
-    i++;
-    if(i >= text.length) clearInterval(interval);
-  },20);
+.block-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1.5rem;
 }
 
-// Chat Logic
-document.getElementById("input").addEventListener("keypress",function(e){
-if(e.key==="Enter"){
-let msg=this.value;
-
-addMessage(msg,"user");
-chatHistory.push(msg);
-
-let loading=document.createElement("div");
-loading.className="msg bot";
-loading.innerHTML = "<span class='dots'>...</span>";
-document.getElementById("messages").appendChild(loading);
-
-setTimeout(()=>{
-loading.remove();
-
-let response = getSmartAnswer(msg);
-// let response = getSemanticAnswer(msg) || getAnswer(msg);
-typeText(response);
-// Voice output
-let speech = new SpeechSynthesisUtterance(response);
-speech.lang = "en-US";
-speech.rate = 1;
-speech.pitch = 1;
-speechSynthesis.speak(speech);
-
-chatHistory.push(response);
-},500);
-
-this.value="";
-
-// Save chat in sidebar
-let li = document.createElement("li");
-li.innerText = msg.substring(0, 20);
-li.onclick = () => alert("Chat: " + msg);
-document.getElementById("chatList").appendChild(li);
-
+.block-title h3 {
+    font-size: 1.6rem;
+    color: #fff;
+    margin: 0;
 }
-});
 
-// Voice
-document.getElementById("mic").onclick=()=>{
-const rec=new(window.SpeechRecognition||window.webkitSpeechRecognition)();
-rec.start();
+.block-title span {
+    color: #38bdf8;
+    font-weight: 700;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+}
 
-rec.onresult=e=>{
-document.getElementById("input").value=e.results[0][0].transcript;
-};
-};
+.block-date {
+    background: rgba(56, 189, 248, 0.1);
+    color: #38bdf8;
+    padding: 5px 15px;
+    border-radius: 30px;
+    font-size: 0.75rem;
+    font-weight: 800;
+}
 
-// Scroll animation
-const sections=document.querySelectorAll("section");
-const obs=new IntersectionObserver(entries=>{
-entries.forEach(e=>{
-if(e.isIntersecting) e.target.classList.add("show");
-});
-});
-sections.forEach(s=>obs.observe(s));
+.tech-pill-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 1.5rem;
+}
 
-// 3. The Semantic Engine: Compares user input to site content using vectors
-function getSemanticAnswer(query) {
-  const queryVec = textToVector(query);
-  let bestMatch = null;
-  let maxSim = -1;
+.tech-pill {
+    background: rgba(255,255,255,0.05);
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    color: #94a3b8;
+    border: 1px solid rgba(255,255,255,0.1);
+}
 
-  // Use the vectors created during window.onload
-  if (window.knowledgeVectors) {
-    window.knowledgeVectors.forEach(item => {
-      const sim = cosineSim(queryVec, item.vector);
-      if (sim > maxSim) {
-        maxSim = sim;
-        bestMatch = item.text;
+
+
+.trajectory-wrapper {
+    position: relative;
+    max-width: 900px;
+    margin: 4rem auto;
+    padding: 2rem 0;
+}
+
+/* The Glowing Vertical Line */
+.trajectory-line {
+    position: absolute;
+    left: 20px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(to bottom, #38bdf8, #818cf8, transparent);
+}
+
+.trajectory-item {
+    position: relative;
+    margin-bottom: 4rem;
+    padding-left: 60px;
+}
+
+/* The Glowing Pulse Point */
+.trajectory-dot {
+    position: absolute;
+    left: 11px;
+    top: 5px;
+    width: 20px;
+    height: 20px;
+    background: #030712;
+    border: 3px solid #38bdf8;
+    border-radius: 50%;
+    z-index: 2;
+    box-shadow: 0 0 15px rgba(56, 189, 248, 0.6);
+}
+
+.trajectory-card {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 2rem;
+    border-radius: 16px;
+    transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.trajectory-card:hover {
+    background: rgba(56, 189, 248, 0.03);
+    border-color: #38bdf8;
+    transform: translateX(10px);
+}
+
+.role-title {
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: #fff;
+    margin-bottom: 5px;
+}
+
+.company-name {
+    color: #38bdf8;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+}
+
+.tenure-tag {
+    display: inline-block;
+    padding: 4px 12px;
+    background: rgba(129, 140, 248, 0.1);
+    color: #818cf8;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    margin-top: 10px;
+}
+
+.impact-list {
+    margin-top: 1.5rem;
+    padding-left: 0;
+    list-style: none;
+}
+
+.impact-list li {
+    color: #94a3b8;
+    font-size: 0.95rem;
+    margin-bottom: 10px;
+    display: flex;
+    gap: 10px;
+}
+
+.impact-list li::before {
+    content: "▹";
+    color: #38bdf8;
+}
+
+
+.super-about {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.about-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(56, 189, 248, 0.1);
+    padding: 2rem;
+    border-radius: 16px;
+    transition: 0.4s;
+}
+
+.about-card:hover {
+    border-color: #38bdf8;
+    background: rgba(56, 189, 248, 0.05);
+    transform: translateY(-5px);
+}
+
+.stat-pill {
+    display: inline-block;
+    padding: 4px 12px;
+    background: rgba(56, 189, 248, 0.1);
+    color: #38bdf8;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+.expert-icon {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    display: block;
+}
+	  
+	  
+	  
+	  .edu-card-premium {
+	  background: rgba(255, 255, 255, 0.02);
+	  padding: 1.5rem;
+	  border-radius: 12px;
+	  border-left: 3px solid #38bdf8;
+	  transition: 0.3s;
+	  }
+	  .edu-card-premium:hover {
+	  background: rgba(255, 255, 255, 0.04);
+	  transform: translateX(10px);
+	  }
+	  .cert-item-premium {
+	  display: flex;
+	  align-items: flex-start;
+	  gap: 1rem;
+	  padding: 1rem;
+	  background: #111827;
+	  border-radius: 8px;
+	  border: 1px solid #1f2937;
+	  transition: 0.3s;
+	  }
+	  .cert-item-premium:hover {
+	  border-color: #38bdf8;
+	  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+	  }
+	  .cert-icon {
+	  font-size: 1.2rem;
+	  filter: grayscale(1);
+	  transition: 0.3s;
+	  }
+	  .cert-item-premium:hover .cert-icon {
+	  filter: grayscale(0);
+	  }
+	  .cert-title {
+	  color: #fff;
+	  font-size: 0.85rem;
+	  font-weight: 600;
+	  line-height: 1.3;
+	  }
+	  .cert-provider {
+	  color: #94a3b8;
+	  font-size: 0.75rem;
+	  margin-top: 4px;
+	  }
+	  </style>
+
+
+
+	  <section id="tech-cloud" style="background: #030712; padding: 120px 5%; position: relative; overflow: hidden;">
+	  <div style="position: absolute; top: 50%; left: 50%; width: 600px; height: 600px; background: radial-gradient(circle, rgba(56,189,248,0.05) 0%, transparent 70%); transform: translate(-50%, -50%); pointer-events: none;"></div>
+
+	  <div style="max-width: 1000px; margin: 0 auto; text-align: center; position: relative; z-index: 2;">
+	  <div style="text-transform: uppercase; letter-spacing: 0.4em; font-size: 0.7rem; color: #38bdf8; font-weight: 800; margin-bottom: 1.5rem;">Ecosystem</div>
+	  <h2 style="font-family: 'Playfair Display', serif; font-size: 2.5rem; color: #fff; margin-bottom: 4rem;">Technical Foundations</h2>
+
+	  <div class="cloud-container">
+	  <div class="floating-tag ai-primary">Generative AI</div>
+	  <div class="floating-tag">RAG Pipelines</div>
+	  <div class="floating-tag ai-secondary">Agentic AI</div>
+	  <div class="floating-tag">LangChain</div>
+	  <div class="floating-tag ai-primary">OpenAI GPT</div>
+	  <div class="floating-tag">LlamaIndex</div>
+	  <div class="floating-tag">FAISS</div>
+	  <div class="floating-tag ai-secondary">Fine-tuning</div>
+	  <div class="floating-tag">Prompt Engineering</div>
+
+	  <div class="floating-tag infra-primary">MLOps</div>
+	  <div class="floating-tag">Docker</div>
+	  <div class="floating-tag">Kubernetes</div>
+	  <div class="floating-tag infra-secondary">AWS / GCP</div>
+	  <div class="floating-tag">FastAPI</div>
+	  <div class="floating-tag infra-primary">Uvicorn</div>
+	  <div class="floating-tag">MLflow</div>
+	  <div class="floating-tag">MCP Tools</div>
+	  <div class="floating-tag infra-secondary">ETL Pipelines</div>
+
+	  <div class="floating-tag code-primary">Python</div>
+	  <div class="floating-tag">PyTorch</div>
+	  <div class="floating-tag">TensorFlow</div>
+	  <div class="floating-tag code-secondary">NLP</div>
+	  <div class="floating-tag">XGBoost</div>
+	  <div class="floating-tag">SQL / NoSQL</div>
+	  <div class="floating-tag code-secondary">Pandas & NumPy</div>
+	  </div>
+	  </div>
+	  </section>
+
+	  <style>
+	  .cloud-container {
+	  display: flex;
+	  flex-wrap: wrap;
+	  justify-content: center;
+	  gap: 1.2rem;
+	  perspective: 1000px;
+	  }
+
+	  .floating-tag {
+	  padding: 0.8rem 1.8rem;
+	  background: rgba(255, 255, 255, 0.03);
+	  border: 1px solid rgba(255, 255, 255, 0.08);
+	  color: #94a3b8;
+	  border-radius: 50px;
+	  font-size: 0.9rem;
+	  font-weight: 600;
+	  cursor: default;
+	  transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+	  backdrop-filter: blur(5px);
+	  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+	  }
+
+	  /* Color variations for visual depth */
+	  .ai-primary { border-color: rgba(56, 189, 248, 0.4); color: #fff; }
+	  .ai-secondary { border-color: rgba(129, 140, 248, 0.4); color: #fff; }
+	  .infra-primary { border-color: rgba(52, 211, 153, 0.4); }
+	  .code-primary { border-color: rgba(251, 191, 36, 0.4); }
+
+	  .floating-tag:hover {
+	  background: rgba(56, 189, 248, 0.1);
+	  border-color: #38bdf8;
+	  color: #38bdf8;
+	  transform: translateZ(30px) translateY(-10px) rotateX(10deg);
+	  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), 0 0 20px rgba(56, 189, 248, 0.2);
+	  }
+
+	  /* Animation for the "Cloud" feel */
+	  @keyframes subtleFloat {
+	  0%, 100% { transform: translateY(0); }
+	  50% { transform: translateY(-10px); }
+	  }
+
+	  .floating-tag:nth-child(odd) { animation: subtleFloat 4s ease-in-out infinite; }
+	  .floating-tag:nth-child(even) { animation: subtleFloat 4s ease-in-out infinite 2s; }
+
+	  @media (max-width: 768px) {
+	  .floating-tag { padding: 0.6rem 1.2rem; font-size: 0.8rem; }
+	  }
+	  </style>
+
+
+
+	  <!-- CONTACT -->
+
+
+<section id="contact" style="padding: 120px 5%;">
+    <div style="text-align: center; margin-bottom: 4rem;">
+        <h2 class="about-header-glow">Get In Touch</h2>
+        <p style="color: #94a3b8;">Available for strategic AI leadership and architectural consultation.</p>
+    </div>
+
+    <div class="contact-wrapper">
+        <div class="contact-card-premium">
+            <div class="contact-icon-circle">📞</div>
+            <span class="contact-label">Direct Line</span>
+            <a href="tel:+919716137265" class="contact-value">+91 9716137265</a>
+            <p style="font-size: 0.8rem; color: #64748b; margin-top: 10px;">9+ Years of Industry Expertise.</p>
+        </div>
+
+        <div class="contact-card-premium">
+            <div class="contact-icon-circle">📧</div>
+            <span class="contact-label">Official Email</span>
+            <a href="mailto:mdarshadali.2609@gmail.com" class="contact-value">mdarshadali.2609@gmail.com</a>
+            <p style="font-size: 0.8rem; color: #64748b; margin-top: 10px;">Primary Channel for Inquiries.</p>
+        </div>
+
+        <div class="contact-card-premium">
+            <div class="contact-icon-circle">📍</div>
+            <span class="contact-label">Operational Base</span>
+            <div class="contact-value">Delhi, India</div>
+            <p style="font-size: 0.8rem; color: #64748b; margin-top: 10px;">Available for Hybrid Roles.</p>
+        </div>
+    </div>
+</section>	  
+
+	  <!-- <section id="contact" style="text-align: center;">
+	  <h2>Contact</h2>
+	  <div class="card" style="display: inline-block; min-width: 300px;">
+	  <p>📧 Email: <a href="mailto:mdarshadali.2609@gmail.com" style="color: #38bdf8; text-decoration: none;">mdarshadali.2609@gmail.com</a></p>
+	  <p>📍 Location: Delhi, India</p>
+	  </div>
+	  </section> -->
+
+
+<footer>
+    <div class="footer-gradient-line"></div>
+    
+    <div class="footer-logo">
+        Md Arshad <span>Ali</span>
+    </div>
+
+    <p style="color: #64748b; font-size: 0.9rem; max-width: 500px; margin: 0 auto;">
+        Architecting the future of enterprise AI through precision engineering and strategic leadership.
+    </p>
+
+    <div class="footer-socials">
+        <a href="https://www.linkedin.com/in/mdarshadali/" class="footer-link">LinkedIn</a>
+        <a href="https://github.com/ArshadAliDS" class="footer-link">GitHub</a>
+        <a href="mailto:mdarshadali.2609@gmail.com" class="footer-link">Email</a>
+    </div>
+
+    <div class="footer-copyright">
+        © 2026 Md Arshad Ali · Built with 🦾 and GenAI.
+    </div>
+</footer>
+<!-- 
+	  <footer>© 2026 Arshad</footer> -->
+
+	  <!-- CHAT BUTTON -->
+	  <button id="chatBtn">💬</button>
+
+	  <!-- CHAT -->
+	  <div id="chatBox" style="display: none; flex-direction: column;">
+	  <div style="background: #38bdf8; color: black; padding: 10px; display: flex; justify-content: space-between; align-items: center; border-radius: 12px 12px 0 0;">
+	  <span style="font-weight: bold;">AI Assistant</span>
+	  <button id="closeChat" style="background: none; border: none; font-size: 20px; cursor: pointer;">&times;</button>
+	  </div>
+
+	  <div id="messages"></div>
+
+
+	  <div id="suggestions" style="padding: 10px; display: flex; gap: 5px; flex-wrap: wrap; background: #111827;">
+	  <button onclick="sendQuickMsg('Tell me about your RAG project')" style="font-size: 10px; background: #1f2937; color: #38bdf8; border: 1px solid #334155; border-radius: 4px; cursor: pointer;">RAG Project</button>
+	  <button onclick="sendQuickMsg('What did you do at Coforge?')" style="font-size: 10px; background: #1f2937; color: #38bdf8; border: 1px solid #334155; border-radius: 4px; cursor: pointer;">Coforge Role</button>
+	  <button onclick="sendQuickMsg('Agentic AI details')" style="font-size: 10px; background: #1f2937; color: #38bdf8; border: 1px solid #334155; border-radius: 4px; cursor: pointer;">Agentic AI</button>
+	  </div>
+	  <div id="inputArea">
+	  <input id="input" placeholder="Ask about my work..." />
+	  <button id="mic">🎤</button>
+	  </div>
+	  </div>
+
+	  <script>
+
+
+
+	  // Trigger skill bar animation on scroll
+	  const barObserver = new IntersectionObserver(entries => {
+	  entries.forEach(entry => {
+	  if (entry.isIntersecting) {
+	  entry.target.querySelectorAll('.bar-fill').forEach(bar => {
+	  setTimeout(() => {
+	  bar.style.width = bar.dataset.width + '%';
+	  }, 300);
+	  });
+	  barObserver.unobserve(entry.target);
+	  }
+	  });
+	  }, { threshold: 0.3 });
+
+	  const barGrid = document.getElementById('barSkills1');
+	  if (barGrid) barObserver.observe(barGrid);
+
+	  function sendQuickMsg(text) {
+	  document.getElementById("input").value = text;
+	  // Trigger the enter key logic manually
+	  const ke = new KeyboardEvent('keypress', {
+	  bubbles: true, cancelable: true, keyCode: 13, key: "Enter"
+	  });
+	  document.getElementById("input").dispatchEvent(ke);
+	  }
+
+
+	  // Toggle Chat
+	  const btn=document.getElementById("chatBtn");
+	  const box=document.getElementById("chatBox");
+
+	  const closeBtn = document.getElementById("closeChat"); // Get the X button
+
+	  // Open chat and hide the floating icon
+	  btn.onclick = () => {
+	  box.style.display = "flex";
+	  btn.style.display = "none";
+	  };
+
+	  // Close chat and show the floating icon again
+	  closeBtn.onclick = () => {
+	  box.style.display = "none";
+	  btn.style.display = "block";
+	  };
+
+	  // Memory
+	  let chatHistory=[];
+
+
+	  // TEXT → VECTOR
+	  function textToVector(text) {
+	  const words = text.toLowerCase().split(" ");
+	  let vec = new Array(50).fill(0);
+
+	  words.forEach(word => {
+	  let index = word.charCodeAt(0) % 50;
+	  vec[index] += 1;
+	  });
+
+	  return vec;
+	  }
+
+	  // COSINE SIMILARITY
+	  function cosineSim(a, b) {
+	  let dot = 0, magA = 0, magB = 0;
+
+	  for (let i = 0; i < a.length; i++) {
+	  dot += a[i] * b[i];
+	  magA += a[i] * a[i];
+	  magB += b[i] * b[i];
+	  }
+
+	  return dot / (Math.sqrt(magA) * Math.sqrt(magB));
+	  }
+
+
+
+	  // Knowledge Base
+	  const knowledge=[
+	  "Arshad is a Senior AI/ML Engineer with over 9 years of experience.",
+	  "He built a RAG chatbot that reduced query resolution time by 60 percent.",
+	  "He developed a demand forecasting system improving accuracy by 25 percent.",
+	  "He built an agentic AI system that improved efficiency by 40 percent.",
+	  "He specializes in Python, Machine Learning, Generative AI, and AWS."
+	  ];
+
+	  // AUTO LEARN
+	  let autoKnowledge = [];
+
+	  window.onload = () => {
+	  autoKnowledge = extractSiteContent();
+
+	  const allKnowledge = [...knowledge, ...autoKnowledge];
+
+	  window.knowledgeVectors = allKnowledge.map(k => ({
+	  text: k,
+	  vector: textToVector(k)
+	  }));
+	  };
+
+	  // AUTO LEARN FROM WEBSITE
+	  function extractSiteContent() {
+	  let text = document.body.innerText;
+
+	  // Fix missing spaces between words
+	  text = text.replace(/([a-z])([A-Z])/g, "$1 $2");
+
+	  // Add space after numbers
+	  text = text.replace(/([0-9])([A-Za-z])/g, "$1 $2");
+
+	  // Clean symbols
+	  text = text.replace(/[^a-zA-Z0-9.% ]/g, " ");
+
+	  // Normalize spaces
+	  text = text.replace(/\s+/g, " ");
+
+	  // Split into sentences
+	  let sentences = text.split(". ");
+
+	  return sentences.filter(s => s.length > 40);
+	  }
+
+	  // Score
+	  function score(q,t){
+	  let s=0;
+	  q.split(" ").forEach(w=>{
+	  if(t.toLowerCase().includes(w.toLowerCase())) s++;
+	  });
+	  return s;
+	  }
+
+	  // Better RAG
+
+
+	  // 1. Define structured data for specific "Intents"
+	  const profileData = {
+	  experience: "Arshad is a Senior Technical Lead at Coforge (since June 2025), leading AI-enabled SDLC platforms[cite: 97, 98]. He has 9+ years of experience including Genpact and Deloitte[cite: 114, 132].",
+	  skills: "He specializes in Agentic AI, RAG, LangChain, and MLOps (Docker, Kubernetes)[cite: 86, 88].",
+	  achievements: "Key impacts: 60% faster document search [cite: 118], 50% less manual review time [cite: 119], and 35% faster decision-making[cite: 115].",
+	  education: "He holds an MBA from IGNOU (2022-2024) and a BCom from Delhi University[cite: 138, 139, 140, 141].",
+	  contact: "Email: mdarshadali.2609@gmail.com | Phone: 9716137265[cite: 76]."
+	  };
+	  // 2. The Smart Logic: Intent Check -> Semantic Search -> Basic Score
+	  function getSmartAnswer(q) {
+	  const query = q.toLowerCase();
+
+	  // INTENT HANDLING: Direct matches for common questions
+	  if (query.includes("experience") || query.includes("years") || query.includes("how long")) {
+	  return profileData.experience;
+	  }
+	  if (query.includes("skill") || query.includes("tech") || query.includes("stack") || query.includes("language")) {
+	  return profileData.skills;
+	  }
+	  if (query.includes("project") || query.includes("work") || query.includes("case") || query.includes("built")) {
+	  return profileData.projects;
+	  }
+	  if (query.includes("contact") || query.includes("email") || query.includes("reach")) {
+	  return profileData.contact;
+	  }
+
+	  // SEMANTIC FALLBACK: If no intent matches, use your vector math
+	  let semanticResult = getSemanticAnswer(query);
+	  if (semanticResult && semanticResult.trim().length > 10) {
+	  return semanticResult;
+	  }
+
+	  return "I specialize in building scalable AI/ML systems and RAG pipelines. How can I help you today?";
+	  }
+
+	  // UI
+	  function addMessage(text,type){
+	  let wrapper = document.createElement("div");
+	  wrapper.style.display = "flex";
+	  wrapper.style.alignItems = "flex-start";
+	  wrapper.style.gap = "8px";
+
+	  let img = document.createElement("img");
+	  img.src = type === "user" ? USER_IMG : BOT_IMG;
+	  img.style.width = "30px";
+	  img.style.height = "30px";
+	  img.style.borderRadius = "50%";
+
+	  let div = document.createElement("div");
+	  div.className = "msg " + type;
+	  div.innerText = text;
+	  div.title = text; // Tooltip on hover
+
+	  if(type === "user"){
+	  wrapper.style.flexDirection = "row-reverse";
+	  }
+
+	  wrapper.appendChild(img);
+	  wrapper.appendChild(div);
+
+	  document.getElementById("messages").appendChild(wrapper);
+	  }
+
+	  // Typing Effect
+	  function typeText(text){
+	  let wrapper = document.createElement("div");
+	  wrapper.style.display = "flex";
+	  wrapper.style.alignItems = "flex-start";
+	  wrapper.style.gap = "8px";
+
+	  let img = document.createElement("img");
+	  img.src = BOT_IMG;
+	  img.style.width = "30px";
+	  img.style.height = "30px";
+	  img.style.borderRadius = "50%";
+
+	  let div = document.createElement("div");
+	  div.className = "msg bot";
+	  div.title = text; // Tooltip on hover
+
+	  wrapper.appendChild(img);
+	  wrapper.appendChild(div);
+
+	  document.getElementById("messages").appendChild(wrapper);
+
+	  let i = 0;
+	  let interval = setInterval(()=>{
+	  div.innerText += text[i];
+	  i++;
+	  if(i >= text.length) clearInterval(interval);
+	  },20);
+	  }
+
+	  // Chat Logic
+
+document.getElementById("input").addEventListener("keypress", function(e) {
+  if (e.key === "Enter" && this.value.trim() !== "") {
+    let msg = this.value;
+
+    // 1. Show User Message
+    addMessage(msg, "user");
+
+    // 2. Clear Input Immediately
+    this.value = "";
+
+    // 3. Show Loading Animation
+    let messagesDiv = document.getElementById("messages");
+    let loading = document.createElement("div");
+    loading.className = "msg bot";
+    loading.innerHTML = "<span class='dots'>...</span>";
+    messagesDiv.appendChild(loading);
+    messagesDiv.scrollTop = messagesDiv.scrollHeight;
+
+    // 4. Generate & Type Response
+    setTimeout(() => {
+      loading.remove();
+      let response = getSmartAnswer(msg);
+      typeText(response);
+      
+      // Save to history (optional check to prevent errors)
+      const chatList = document.getElementById("chatList");
+      if (chatList) {
+        let li = document.createElement("li");
+        li.innerText = msg.substring(0, 20) + "...";
+        chatList.appendChild(li);
       }
-    });
+    }, 600);
   }
+});
 
-  // Only return if the similarity is high enough (threshold)
-  return maxSim > 0.3 ? bestMatch : null;
-}
-</script>
 
-</body>
+	  // Voice
+	  document.getElementById("mic").onclick=()=>{
+	  const rec=new(window.SpeechRecognition||window.webkitSpeechRecognition)();
+	  rec.start();
+
+	  rec.onresult=e=>{
+	  document.getElementById("input").value=e.results[0][0].transcript;
+	  };
+	  };
+
+	  // Scroll animation
+	  const sections=document.querySelectorAll("section");
+	  const obs=new IntersectionObserver(entries=>{
+	  entries.forEach(e=>{
+	  if(e.isIntersecting) e.target.classList.add("show");
+	  });
+	  });
+	  sections.forEach(s=>obs.observe(s));
+
+	  // 3. The Semantic Engine: Compares user input to site content using vectors
+	  function getSemanticAnswer(query) {
+	  const queryVec = textToVector(query);
+	  let bestMatch = null;
+	  let maxSim = -1;
+
+	  // Use the vectors created during window.onload
+	  if (window.knowledgeVectors) {
+	  window.knowledgeVectors.forEach(item => {
+	  const sim = cosineSim(queryVec, item.vector);
+	  if (sim > maxSim) {
+	  maxSim = sim;
+	  bestMatch = item.text;
+	  }
+	  });
+	  }
+
+	  // Only return if the similarity is high enough (threshold)
+	  return maxSim > 0.3 ? bestMatch : null;
+	  }
+	  </script>
+  </body>
 </html>
